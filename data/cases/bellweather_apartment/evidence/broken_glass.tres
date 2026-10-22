@@ -1,0 +1,17 @@
+[gd_resource type="EvidenceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/evidence_definition.gd" id="1"]
+
+[resource]
+script = ExtResource(1)
+evidence_id = &"evidence_broken_glass"
+title = "Vidro quebrado na janela"
+description_found = "O vidro da janela do quarto está estilhaçado. Parece ter sido quebrado de fora para dentro."
+source_location = "Quarto"
+category = "física"
+reliability = 0.85
+relevance_tags = [&"fact_window_was_used"]
+supports_suspect_ids = [&"suspect_mara_voss"]
+contradicts_suspect_ids = [&"suspect_mara_voss"]
+unlocks_after_inspection = false
+discovery_requirements = []

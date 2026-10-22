@@ -1,0 +1,17 @@
+[gd_resource type="EvidenceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/evidence_definition.gd" id="1"]
+
+[resource]
+script = ExtResource(1)
+evidence_id = &"evidence_diary"
+title = "Diário pessoal da vítima"
+description_found = "Um diário onde a vítima menciona desconfiar de Mara Voss."
+source_location = "Quarto"
+category = "documental"
+reliability = 0.4
+relevance_tags = [&"fact_suspect_was_present"]
+supports_suspect_ids = [&"suspect_mara_voss"]
+contradicts_suspect_ids = []
+unlocks_after_inspection = false
+discovery_requirements = []

@@ -1,0 +1,17 @@
+[gd_resource type="EvidenceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/evidence_definition.gd" id="1"]
+
+[resource]
+script = ExtResource(1)
+evidence_id = &"evidence_receipt"
+title = "Recibo de restaurante"
+description_found = "Recibo datado da noite do crime, em nome de Leo Dantas, comprovando que ele estava fora de casa."
+source_location = "Carteira de Leo"
+category = "documental"
+reliability = 0.7
+relevance_tags = [&"fact_alibi_is_verified"]
+supports_suspect_ids = [&"suspect_leo_dantas"]
+contradicts_suspect_ids = []
+unlocks_after_inspection = false
+discovery_requirements = []

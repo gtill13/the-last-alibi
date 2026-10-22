@@ -1,0 +1,7 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="FadeOverlay" type="ColorRect" parent="."]
+anchor_preset = 15
+layout_preset = 15
+color = Color(0, 0, 0, 1)
+visible = false

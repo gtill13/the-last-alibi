@@ -1,0 +1,27 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="HUD" type="CanvasLayer"]
+[node name="InteractionPrompt" type="Control" parent="."]
+visible = false
+anchor_preset = 4
+layout_preset = 4
+offset_left = 600
+offset_top = 400
+size = Vector2(280, 40)
+
+[node name="PromptLabel" type="Label" parent="InteractionPrompt"]
+text = "[E] Interagir"
+
+[node name="CaseStatus" type="Label" parent="."]
+text = "Caso: —"
+anchor_preset = 1
+layout_preset = 1
+offset_right = 20
+offset_top = 20
+
+[node name="NotebookShortcut" type="Button" parent="."]
+text = "Caderno [N]"
+anchor_preset = 1
+layout_preset = 1
+offset_right = 20
+offset_top = 60

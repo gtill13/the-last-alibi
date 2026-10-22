@@ -1,0 +1,26 @@
+[gd_resource type="CaseDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/case_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/suspects/mara_voss.tres" id="2"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/suspects/leo_dantas.tres" id="3"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/suspects/clara_mendes.tres" id="4"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/broken_glass.tres" id="5"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/bloody_knife.tres" id="6"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/receipt.tres" id="7"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/diary.tres" id="8"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/window_latch.tres" id="9"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/fake_alibi.tres" id="10"]
+[ext_resource type="Resource" path="res://data/cases/bellweather_apartment/evidence/note.tres" id="11"]
+
+[resource]
+script = ExtResource(1)
+case_id = &"bellweather_apartment"
+title = "The Bellweather Apartment"
+briefing = "Um corpo foi encontrado no apartamento Bellweather. A polícia isolou o local e removeu o corpo, mas ainda não fez uma investigação profunda. Caberá a você reexaminar a cena."
+scene_path = "res://scenes/investigation/investigation_level.tscn"
+truth_suspect_id = &"suspect_mara_voss"
+initial_police_report = "Vítima do sexo masculino encontrada no apartamento. Horário aproximado do crime: entre 23h e 0h. Três pessoas de interesse: Mara Voss (moradora), Leo Dantas (vizinho) e Clara Mendes (amiga)."
+
+suspects = [ExtResource(2), ExtResource(3), ExtResource(4)]
+
+evidence_catalog = [ExtResource(5), ExtResource(6), ExtResource(7), ExtResource(8), ExtResource(9), ExtResource(10), ExtResource(11)]

@@ -1,0 +1,33 @@
+[gd_resource type="SuspectDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/suspect_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/interview_topic_definition.gd" id="2"]
+
+[resource]
+script = ExtResource(1)
+suspect_id = &"suspect_mara_voss"
+display_name = "Mara Voss"
+short_bio = "Moradora do apartamento. Afirma que estava dormindo na noite do crime."
+known_relationship = "Primeira pessoa a encontrar o corpo e chamar a polícia."
+
+[sub_resource id="1"]
+script = ExtResource(2)
+topic_id = &"mara_alibi"
+question_text = "Onde você estava na noite do crime?"
+answer_text = "Estava em casa, dormindo. Não ouvi nada, não vi ninguém."
+recording_id = &"record_mara_alibi"
+required_evidence_id = &""
+revealed_fact_ids = []
+follow_up_topic_ids = [&"mara_window"]
+
+[sub_resource id="2"]
+script = ExtResource(2)
+topic_id = &"mara_window"
+question_text = "Por que a janela do quarto estava aberta?"
+answer_text = "Não sei. Eu fecho as janelas sempre antes de dormir."
+recording_id = &"record_mara_window"
+required_evidence_id = &"evidence_window_latch"
+revealed_fact_ids = []
+follow_up_topic_ids = []
+
+interview_topics = [SubResource(1), SubResource(2)]

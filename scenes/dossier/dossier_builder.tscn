@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/dossier_builder_ui.gd" id="1"]
+
+[node name="DossierBuilder" type="Control"]
+script = ExtResource(1)
+visible = false
+anchor_preset = 15
+layout_preset = 15
+size = Vector2(700, 520)
+
+[node name="Panel" type="TextureRect" parent="."]
+size = Vector2(700, 520)
+expand_mode = 1
+color = Color(0.14, 0.13, 0.16, 0.97)
+
+[node name="SuspectSelector" type="OptionButton" parent="Panel"]
+position = Vector2(20, 20)
+size = Vector2(300, 30)
+
+[node name="EvidenceSelector" type="ItemList" parent="Panel"]
+position = Vector2(20, 70)
+size = Vector2(300, 240)
+select_mode = 2
+
+[node name="RecordSelector" type="ItemList" parent="Panel"]
+position = Vector2(340, 70)
+size = Vector2(300, 240)
+select_mode = 2
+
+[node name="ReasoningNote" type="TextEdit" parent="Panel"]
+position = Vector2(20, 330)
+size = Vector2(640, 80)
+
+[node name="SubmitButton" type="Button" parent="Panel"]
+text = "Enviar dossiê"
+position = Vector2(20, 470)
+size = Vector2(160, 30)
+
+[node name="CancelButton" type="Button" parent="Panel"]
+text = "Cancelar"
+position = Vector2(200, 470)
+size = Vector2(160, 30)

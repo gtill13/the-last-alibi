@@ -1,0 +1,17 @@
+[gd_resource type="EvidenceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/evidence_definition.gd" id="1"]
+
+[resource]
+script = ExtResource(1)
+evidence_id = &"evidence_window_latch"
+title = "Trinco da janela forçado"
+description_found = "O trinco da janela do quarto mostra sinais de arrombamento."
+source_location = "Quarto"
+category = "física"
+reliability = 0.8
+relevance_tags = [&"fact_window_was_used"]
+supports_suspect_ids = [&"suspect_mara_voss"]
+contradicts_suspect_ids = [&"suspect_mara_voss"]
+unlocks_after_inspection = false
+discovery_requirements = []

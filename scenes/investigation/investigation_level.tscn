@@ -1,0 +1,53 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/investigation/investigation_controller.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/investigation/player/investigator.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/dialogue/dialogue_panel.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/notebook/notebook_screen.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/dossier/dossier_builder.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/results/trial_report.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/confirmation_dialog.tscn" id="8"]
+[sub_resource id="1" type="RectangleShape2D"]
+size = Vector2(2000, 100)
+
+[node name="InvestigationLevel" type="Node2D"]
+script = ExtResource(1)
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="Environment"]
+size = Vector2(1280, 720)
+color = Color(0.15, 0.18, 0.22, 1.0)
+
+[node name="WalkableGeometry" type="StaticBody2D" parent="Environment"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalkableGeometry"]
+shape = ExtResource("::999888777")
+
+[node name="Actors" type="Node2D" parent="."]
+[node name="Investigator" type="Node2D" parent="Actors"]
+instance = ExtResource(2)
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="InteractionScanner" type="Node" parent="."]
+script = ExtResource("res://scripts/player/interaction_scanner.gd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2(1, 1)
+
+[node name="HUD" type="Node" parent="."]
+instance = ExtResource(3)
+
+[node name="ModalLayer" type="CanvasLayer" parent="."]
+[node name="DialoguePanel" type="Node" parent="ModalLayer"]
+instance = ExtResource(4)
+[node name="NotebookScreen" type="Node" parent="ModalLayer"]
+instance = ExtResource(5)
+[node name="DossierBuilder" type="Node" parent="ModalLayer"]
+instance = ExtResource(6)
+[node name="TrialReport" type="Node" parent="ModalLayer"]
+instance = ExtResource(7)
+[node name="ConfirmationDialog" type="Node" parent="ModalLayer"]
+instance = ExtResource(8)

@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/trial_report_ui.gd" id="1"]
+
+[node name="TrialReport" type="Control"]
+script = ExtResource(1)
+visible = false
+anchor_preset = 15
+layout_preset = 15
+size = Vector2(700, 520)
+
+[node name="Panel" type="TextureRect" parent="."]
+size = Vector2(700, 520)
+expand_mode = 1
+color = Color(0.16, 0.14, 0.18, 0.97)
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+text = "Relatório do Julgamento"
+position = Vector2(20, 20)
+size = Vector2(660, 40)
+horizontal_alignment = 1
+
+[node name="VerdictLabel" type="Label" parent="Panel"]
+text = "Veredito: —"
+position = Vector2(20, 70)
+size = Vector2(660, 40)
+
+[node name="SummaryLabel" type="Label" parent="Panel"]
+text = ""
+position = Vector2(20, 120)
+size = Vector2(660, 100)
+autowrap = true
+
+[node name="SectionsList" type="ItemList" parent="Panel"]
+position = Vector2(20, 230)
+size = Vector2(660, 200)
+
+[node name="RetryButton" type="Button" parent="Panel"]
+text = "Jogar novamente"
+position = Vector2(20, 470)
+size = Vector2(160, 30)
+
+[node name="MenuButton" type="Button" parent="Panel"]
+text = "Voltar ao menu"
+position = Vector2(200, 470)
+size = Vector2(160, 30)

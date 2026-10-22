@@ -1,0 +1,24 @@
+# Godot-specific ignores
+*.godot/
+.import/
+*.translation
+*.preset
+
+# Builds
+export/
+build/
+*.pck
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

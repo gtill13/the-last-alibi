@@ -1,0 +1,17 @@
+[gd_resource type="EvidenceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/evidence_definition.gd" id="1"]
+
+[resource]
+script = ExtResource(1)
+evidence_id = &"evidence_fake_alibi"
+title = "Bilhete anônimo"
+description_found = "Um bilhete sem assinatura que acusa Leo Dantas. Sem origem confirmada."
+source_location = "Corredor"
+category = "testemunhal"
+reliability = 0.2
+relevance_tags = [&"fact_suspect_was_present"]
+supports_suspect_ids = [&"suspect_leo_dantas"]
+contradicts_suspect_ids = []
+unlocks_after_inspection = false
+discovery_requirements = []

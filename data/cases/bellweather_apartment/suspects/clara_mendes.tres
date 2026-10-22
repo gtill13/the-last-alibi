@@ -1,0 +1,23 @@
+[gd_resource type="SuspectDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/suspect_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/interview_topic_definition.gd" id="2"]
+
+[resource]
+script = ExtResource(1)
+suspect_id = &"suspect_clara_mendes"
+display_name = "Clara Mendes"
+short_bio = "Amiga da vítima. Morava no mesmo prédio."
+known_relationship = "Amiga próxima da vítima."
+
+[sub_resource id="1"]
+script = ExtResource(2)
+topic_id = &"clara_witness"
+question_text = "Você viu algo estranho naquela noite?"
+answer_text = "Vi uma pessoa saindo pelo corredor do prédio por volta da meia-noite. Parecia a Mara."
+recording_id = &"record_clara_witness"
+required_evidence_id = &""
+revealed_fact_ids = []
+follow_up_topic_ids = []
+
+interview_topics = [SubResource(1)]

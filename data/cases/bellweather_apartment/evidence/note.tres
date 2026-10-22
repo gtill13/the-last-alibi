@@ -1,0 +1,17 @@
+[gd_resource type="EvidenceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/evidence_definition.gd" id="1"]
+
+[resource]
+script = ExtResource(1)
+evidence_id = &"evidence_note"
+title = "Bilhete de lembrete"
+description_found = "Um lembrete sobre consertar o trinco da janela, deixado pela vítima."
+source_location = "Mesa de cabeceira"
+category = "documental"
+reliability = 0.3
+relevance_tags = [&"fact_window_was_used"]
+supports_suspect_ids = []
+contradicts_suspect_ids = []
+unlocks_after_inspection = false
+discovery_requirements = []

@@ -1,0 +1,6 @@
+[gd_scene load_steps=1 format=3]
+
+[node name="ConfirmationDialog" type="ConfirmationDialog"]
+dialog_text = "Encerrar a visita e montar o dossiê?"
+ok_button_text = "Encerrar"
+cancel_button_text = "Cancelar"

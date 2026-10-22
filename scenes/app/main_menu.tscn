@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/app/main_menu.gd" id="1"]
+
+[node name="MainMenu" type="Control"]
+script = ExtResource(1)
+anchor_preset = 15
+layout_preset = 15
+
+[node name="Container" type="VBoxContainer" parent="."]
+anchor_preset = 15
+layout_preset = 15
+size_flags_stretch_ratio = 1.0
+custom_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="Container"]
+text = "THE LAST ALIBI"
+horizontal_alignment = 1
+vertical_alignment = 0
+custom_constants/min_size = Vector2(300, 60)
+
+[node name="ButtonStart" type="Button" parent="Container"]
+text = "Start Case"
+custom_constants/min_size = Vector2(200, 40)
+
+[node name="ButtonQuit" type="Button" parent="Container"]
+text = "Quit"
+custom_constants/min_size = Vector2(200, 40)
