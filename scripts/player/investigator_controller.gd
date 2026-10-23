@@ -3,8 +3,6 @@ class_name InvestigatorController
 
 @export var move_speed: float = 220.0
 
-var velocity: Vector2 = Vector2.ZERO
-
 # Sinal emitido quando o jogador pressiona a tecla de interação (one-shot).
 signal interact_pressed
 

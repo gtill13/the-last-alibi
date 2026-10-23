@@ -12,6 +12,14 @@ var _discovered_suites: int = 0
 
 
 func _initialize() -> void:
+	# Configurar InputMap para testes (move_left/move_right usados pelo Investigador).
+	_input_map_add_action("move_left", KEY_A)
+	_input_map_add_action("move_right", KEY_D)
+	_input_map_add_action("interact", KEY_E)
+	_input_map_add_action("open_notebook", KEY_N)
+	_input_map_add_action("cancel", KEY_ESCAPE)
+	_input_map_add_action("confirm", KEY_ENTER)
+
 	for suite_dir: String in SUITE_DIRS:
 		_run_directory(suite_dir)
 
@@ -23,6 +31,16 @@ func _initialize() -> void:
 		_passed, _failed, _discovered_suites, _discovered_tests
 	])
 	quit(1 if _failed > 0 else 0)
+
+
+func _input_map_add_action(action_name: String, keycode: int) -> void:
+	var input_map = InputMap
+	if not input_map.has_action(action_name):
+		input_map.add_action(action_name)
+	var event = InputEventKey.new()
+	event.keycode = keycode
+	event.pressed = true
+	input_map.action_add_event(action_name, event)
 
 
 func _run_directory(suite_dir: String) -> void:

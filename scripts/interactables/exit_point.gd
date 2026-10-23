@@ -3,7 +3,6 @@ class_name ExitPoint
 
 signal exit_requested
 
-@export var interaction_label: String = "Encerrar investigação"
 @export var confirm_text: String = "Encerrar a visita e montar o dossiê?"
 
 func _ready() -> void:

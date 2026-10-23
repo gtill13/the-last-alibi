@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/dossier/dossier_builder.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/results/trial_report.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://scenes/ui/confirmation_dialog.tscn" id="8"]
-[sub_resource id="1" type="RectangleShape2D"]
-size = Vector2(2000, 100)
+[ext_resource type="Script" path="res://scripts/player/interaction_scanner.gd" id="9"]
 
 [node name="InvestigationLevel" type="Node2D"]
 script = ExtResource(1)
@@ -20,35 +19,24 @@ script = ExtResource(1)
 size = Vector2(1280, 720)
 color = Color(0.15, 0.18, 0.22, 1.0)
 
-[node name="WalkableGeometry" type="StaticBody2D" parent="Environment"]
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WalkableGeometry"]
-shape = SubResource(1)
-
 [node name="Actors" type="Node2D" parent="."]
-[node name="Investigator" parent="Actors"]
-instance = ExtResource(2)
+[node name="Investigator" parent="Actors" instance=ExtResource(2)]
 
 [node name="Interactables" type="Node2D" parent="."]
 
 [node name="InteractionScanner" type="Node" parent="."]
-script = ExtResource("res://scripts/player/interaction_scanner.gd")
+script = ExtResource(9)
 interaction_range = 90.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2(1, 1)
 
-[node name="HUD" type="Node" parent="."]
-instance = ExtResource(3)
+[node name="HUD" parent="." instance=ExtResource(3)]
 
 [node name="ModalLayer" type="CanvasLayer" parent="."]
-[node name="DialoguePanel" type="Node" parent="ModalLayer"]
-instance = ExtResource(4)
-[node name="NotebookScreen" type="Node" parent="ModalLayer"]
-instance = ExtResource(5)
-[node name="DossierBuilder" type="Node" parent="ModalLayer"]
-instance = ExtResource(6)
-[node name="TrialReport" type="Node" parent="ModalLayer"]
-instance = ExtResource(7)
-[node name="ConfirmationDialog" type="Node" parent="ModalLayer"]
-instance = ExtResource(8)
+[node name="DialoguePanel" parent="ModalLayer" instance=ExtResource(4)]
+[node name="NotebookScreen" parent="ModalLayer" instance=ExtResource(5)]
+[node name="DossierBuilder" parent="ModalLayer" instance=ExtResource(6)]
+[node name="TrialReport" parent="ModalLayer" instance=ExtResource(7)]
+[node name="ConfirmationDialog" parent="ModalLayer" instance=ExtResource(8)]

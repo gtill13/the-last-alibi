@@ -5,7 +5,6 @@ signal interview_requested(suspect_id: StringName, display_name: String)
 
 @export var suspect_id: StringName = &""
 @export var display_name: String = "Suspeito"
-@export var interaction_label: String = "Entrevistar"
 
 func _ready() -> void:
     super._ready()
