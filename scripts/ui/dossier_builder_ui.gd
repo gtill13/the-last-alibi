@@ -26,7 +26,8 @@ func _refresh() -> void:
     if case_definition == null:
         return
     for suspect in case_definition.suspects:
-        suspect_selector.add_item(suspect.display_name, suspect.suspect_id)
+        var idx = suspect_selector.add_item(suspect.display_name)
+        suspect_selector.set_item_metadata(idx, suspect.suspect_id)
 
     evidence_selector.clear()
     if case_session == null:
@@ -34,12 +35,14 @@ func _refresh() -> void:
     for evidence_id in case_session.collected_evidence_ids:
         var evidence = case_definition.get_evidence(evidence_id)
         if evidence != null:
-            evidence_selector.add_item(evidence.title, evidence.evidence_id)
+            var idx = evidence_selector.add_item(evidence.title)
+            evidence_selector.set_item_metadata(idx, evidence.evidence_id)
 
     record_selector.clear()
     # Lista gravações disponíveis (simplificado: pega todos os records da sessão)
     for record in case_session.interview_records:
-        record_selector.add_item("Entrevista — %s" % [record.suspect_id], record.record_id)
+        var idx = record_selector.add_item("Entrevista — %s" % [record.suspect_id])
+        record_selector.set_item_metadata(idx, record.record_id)
 
 func _on_submit_pressed() -> void:
     var submission = dossier_model.get_submission()

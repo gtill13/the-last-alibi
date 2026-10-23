@@ -26,7 +26,7 @@ func _refresh() -> void:
     for entry in notebook_model.get_collected_evidence_titles():
         evidence_list.add_item(entry["title"])
         evidence_list.set_item_metadata(evidence_list.get_item_count() - 1, entry["id"])
-        evidence_list.add_subitem(entry["description"], -1, False)
+        evidence_list.add_subitem(entry["description"], -1, false)
 
     interview_list.clear()
     for entry in notebook_model.get_interview_summaries():

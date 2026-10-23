@@ -32,7 +32,7 @@ func _update_nearby() -> void:
     var player_pos: Vector2 = player_node.global_position
     var still_nearby: Array[Interactable] = []
     for interactable in nearby_interactables:
-        if interactable == null:
+        if not is_instance_valid(interactable):
             continue
         var distance: float = player_pos.distance_to(interactable.global_position)
         if distance <= interaction_range:
@@ -69,7 +69,7 @@ func _select_best_target() -> void:
         else:
             interaction_target_lost.emit()
 
-func _set_target_highlighted(highlighted: Boolean) -> void:
+func _set_target_highlighted(highlighted: bool) -> void:
     if current_target != null:
         current_target.set_highlighted(highlighted)
 

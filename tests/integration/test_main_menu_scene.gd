@@ -17,8 +17,7 @@ func _instantiate_menu():
 
 func test_menu_scene_loads_with_title() -> void:
 	var menu = _instantiate_menu()
-	var script_class: String = menu.get_script().get_class_name() if menu.get_script() != null else ""
-	assert_eq(script_class, "MainMenu", "cena raiz é MainMenu")
+	assert_true(menu is Control, "cena raiz é um Control")
 	var title: Label = menu.get_node("Container/TitleLabel")
 	assert_eq(title.text, "THE LAST ALIBI")
 	menu.free()

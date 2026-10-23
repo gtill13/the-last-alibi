@@ -11,9 +11,10 @@ class_name InspectableObject
 signal examine_requested(evidence_id: StringName, title: String, description: String)
 
 func _ready() -> void:
+    super._ready()
     interaction_requested.connect(_on_interaction_requested)
-    if DebugIdLabel != null:
-        DebugIdLabel.text = str(interactable_id)
+    if debug_label != null:
+        debug_label.text = str(interactable_id)
 
 func _on_interaction_requested(id: StringName) -> void:
     if id == interactable_id:

@@ -1,6 +1,6 @@
-# Verificação manual — The Last Alibi
+# Verificação manual — The Last Alibi (Fase 1)
 
-Roteiro para conferir, numa sessão gráfica, o que os testes headless não cobrem.
+Roteiro para conferir, numa sessão gráfica, o que os testes headless não cobrem da Fase 1.
 
 ## Como executar (sessão gráfica)
 
@@ -11,118 +11,55 @@ export GODOT_BIN="/home/till/.local/share/Steam/steamapps/common/Godot Engine/go
 
 ## Driver temporário de interface (xdotool + spectacle)
 
-O driver abaixo é temporário (remover antes do commit). Ele inicia o jogo em
-janela 1280×720, tira screenshots com `spectacle` e simula cliques/teclas com
-`xdotool` para validar o fluxo: menu → início do caso → caderno → dossiê.
-
 ```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-PROJECT_DIR="/home/till/Projects/the-last-alibi"
-GODOT_BIN="${GODOT_BIN:-/home/till/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64}"
-OUT_DIR="${PROJECT_DIR}/tests/manual/screenshots"
-mkdir -p "$OUT_DIR"
-
-"$GODOT_BIN" --path "$PROJECT_DIR" --window-size 1280x720 &
-GODOT_PID=$!
-sleep 6
-
-# Aguarda a janela do Godot aparecer
-WIN_ID=$(xdotool search --name "The Last Alibi" | head -1)
-if [[ -z "$WIN_ID" ]]; then
-    echo "Janela do Godot não encontrada" >&2
-    kill "$GODOT_PID" 2>/dev/null || true
-    exit 1
-fi
-
-xdotool windowactivate "$WIN_ID"
-sleep 1
-
-screenshot() {
-    local name="$1"
-    spectacle -b -c -o "$OUT_DIR/$name.png" "$WIN_ID" 2>/dev/null || true
-    sleep 0.5
-}
-
-# 1. Menu principal
-screenshot "01_menu"
-xdotool key --window "$WIN_ID" Tab
-sleep 0.3
-xdotool key --window "$WIN_ID" Return
-sleep 2
-
-# 2. Nível de investigação (deve abrir após Start Case)
-screenshot "02_investigation"
-xdotool key --window "$WIN_ID" n
-sleep 1
-screenshot "03_notebook"
-xdotool key --window "$WIN_KEY" Escape 2>/dev/null || xdotool key --window "$WIN_ID" Escape
-sleep 0.5
-
-# 3. Encerra
-kill "$GODOT_PID" 2>/dev/null || true
+./tests/manual/driver_interface.sh
 ```
 
-> **Nota:** o driver acima usa `spectacle` (captura de janela) e `xdotool` (teclas/mouse sintéticos). A janela deve estar em 1280×720 e o foco deve estar no Godot. Os scripts temporários são removidos antes do commit.
+O driver inicia o jogo em 1280×720, tira screenshots com `spectacle` e simula teclas com `xdotool`:
+1. Menu → Start Case
+2. Nível de investigação (investigador aparece, câmera segue)
+3. Movimenta para direita (D)
+4. Interage (E) com o alvo mais próximo
+5. Movimenta para esquerda (A)
+6. Abre caderno (N)
+7. Fecha caderno (Esc)
 
-## Checklist — Fase 0 (projeto executável + Git)
+Os screenshots ficam em `tests/manual/screenshots/fase1/`.
 
-- [ ] O projeto abre no Godot 4.7.2 sem erros de parser.
-- [ ] O menu principal mostra "THE LAST ALIBI", "Start Case" e "Quit".
-- [ ] "Start Case" navega até o nível de investigação.
-- [ ] "Quit" fecha o jogo fora do editor e não quebra dentro do editor.
-- [ ] A segunda execução mantém o fluxo correto.
-- [ ] O overlay de debug pode ser ativado por tecla (quando implementado).
+---
 
 ## Checklist — Fase 1 (movimento + interação)
 
-- [ ] O investigador anda para esquerda e direita (`A`/`D` ou setas).
-- [ ] O investigador não atravessa o piso/obstáculos.
-- [ ] O prompt de interação aparece ao aproximar de um objeto/NPC/saída.
-- [ ] O prompt desaparece ao se afastar.
-- [ ] Se dois objetos estiverem próximos, a interação selecionada é clara e previsível.
-- [ ] Pressionar `E` uma única vez não dispara duas interações.
+### Código (headless — `./tests/run_tests.sh`)
+- [ ] `test_investigator_controller.gd::test_investigator_default_move_speed` — velocidade padrão 220
+- [ ] `test_investigator_controller.gd::test_investigator_is_character_body2d` — herda CharacterBody2D
+- [ ] `test_investigator_controller.gd::test_physics_process_sets_velocity_x` — movimento lateral aplica velocidade
+- [ ] `test_investigator_controller.gd::test_interact_pressed_emitted_once_per_key_event` — one-shot por tecla E
+- [ ] `test_interaction_scanner.gd::test_selects_closest_interactable` — escolhe o mais próximo
+- [ ] `test_interaction_scanner.gd::test_tiebreaker_by_id_lexicographic` — desempate por ID determinístico
+- [ ] `test_interaction_scanner.gd::test_out_of_range_not_selected` — fora de alcance não é selecionado
+- [ ] `test_interaction_scanner.gd::test_unregister_on_exit_tree_removes_from_scanner` — remove ao sair de cena
+- [ ] `test_investigation_level_scene.gd::test_level_scene_loads_investigator_and_camera` — cena carrega corretamente
+- [ ] `test_investigation_level_scene.gd::test_investigator_has_movement_speed` — velocidade do investigador
+- [ ] `test_investigation_level_scene.gd::test_scanner_has_player_node_and_range` — scanner vinculado ao jogador
+- [ ] `test_investigation_level_scene.gd::test_hud_has_interaction_prompt` — HUD tem prompt
 
-## Checklist — Fase 2 (exame + evidências)
+### Visual (sessão gráfica com driver xdotool/spectacle)
+- [ ] O investigador aparece na cena ao iniciar o caso
+- [ ] O investigador se move para direita com a tecla D
+- [ ] O investigador se move para esquerda com a tecla A
+- [ ] O investigador não atravessa o piso/obstáculos
+- [ ] O prompt de interação aparece ao aproximar de um objeto/NPC/saída
+- [ ] O prompt exibe o texto correto por tipo ("[E] Examinar", "[E] Entrevistar", "[E] Sair")
+- [ ] O prompt desaparece ao se afastar do objeto
+- [ ] Se dois objetos estiverem próximos, a interação selecionada é clara e previsível (o mais próximo)
+- [ ] Pressionar E uma única vez não dispara duas interações
+- [ ] A câmera acompanha o investigador sem recortes abruptos
+- [ ] O identificador de depuração (ID) aparece sobre o objeto quando próximo
+- [ ] O contorno visual diferente aparece sobre o objeto quando próximo
+- [ ] Não há referência inválida quando um objeto sai de cena
 
-- [ ] Examinar um objeto abre um painel com título, descrição e opções.
-- [ ] Registrar evidência adiciona ao caderno; fechar/abrir caderno mantém o dado.
-- [ ] A mesma evidência não pode ser registrada duas vezes.
-- [ ] Reiniciar o caso cria sessão nova sem evidências da tentativa anterior.
-
-## Checklist — Fase 3 (entrevistas + gravações)
-
-- [ ] Pelo menos 3 personagens podem ser entrevistados.
-- [ ] Respostas e perguntas feitas aparecem no registro correto.
-- [ ] Tópico bloqueado fica indisponível até o requisito ser cumprido.
-- [ ] Sair da entrevista e voltar não apaga respostas registradas.
-- [ ] O caderno indica de qual pessoa é cada gravação.
-
-## Checklist — Fase 4 (saída + montagem de dossiê)
-
-- [ ] Jogador pode concluir com dossiê vazio ou fraco.
-- [ ] Suspeito escolhido é registrado corretamente.
-- [ ] O dossiê contém somente itens selecionados.
-- [ ] Clicar duas vezes em enviar não inicia dois julgamentos.
-- [ ] Cancelar antes da confirmação volta à edição sem perda de seleção.
-
-## Checklist — Fase 5 (julgamento determinístico)
-
-- [ ] O mesmo dossiê produz sempre o mesmo resultado.
-- [ ] O avaliador pode ser testado sem abrir cenas (testes headless verdes).
-- [ ] Provas não anexadas não influenciam a avaliação.
-- [ ] Um dossiê vazio nunca resulta em condenação correta por acidente.
-- [ ] O relatório diferencia veredito judicial e acerto da investigação.
-- [ ] O texto explica pelo menos uma razão concreta para o resultado.
-
-## Checklist — Fase 6 (caso vertical slice completo)
-
-- [ ] É possível completar uma tentativa de começo a fim.
-- [ ] Nenhuma pista obrigatória fica inacessível por problema de colisão ou prompt.
-- [ ] É possível acusar cada um dos 3 suspeitos e obter resolução sem crash.
-- [ ] O relatório do julgamento é coerente com as escolhas feitas.
-- [ ] O estado de uma tentativa não vaza para a próxima.
+---
 
 ## Observações
 

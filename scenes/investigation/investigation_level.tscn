@@ -32,7 +32,6 @@ instance = ExtResource(2)
 
 [node name="InteractionScanner" type="Node" parent="."]
 script = ExtResource("res://scripts/player/interaction_scanner.gd")
-player_node = "Actors/Investigator"
 interaction_range = 90.0
 
 [node name="Camera2D" type="Camera2D" parent="."]

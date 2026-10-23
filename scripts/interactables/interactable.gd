@@ -27,14 +27,14 @@ func request_interaction() -> void:
         interaction_requested.emit(interactable_id)
 
 # Chamado pelo scanner quando este interagível se torna o alvo ativo (próximo).
-func set_highlighted(highlighted: Boolean) -> void:
+func set_highlighted(highlighted: bool) -> void:
     _set_outline_visible(highlighted)
     _set_debug_label_visible(highlighted and show_debug_id)
 
-func _set_outline_visible(visible: Boolean) -> void:
+func _set_outline_visible(visible: bool) -> void:
     if outline_node != null:
         outline_node.visible = visible
 
-func _set_debug_label_visible(visible: Boolean) -> void:
+func _set_debug_label_visible(visible: bool) -> void:
     if debug_label != null:
         debug_label.visible = visible
