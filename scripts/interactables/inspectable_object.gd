@@ -10,9 +10,11 @@ class_name InspectableObject
 # Emitido quando o jogador pede para examinar este objeto.
 signal examine_requested(evidence_id: StringName, title: String, description: String)
 
+func _ready() -> void:
+    interaction_requested.connect(_on_interaction_requested)
+    if DebugIdLabel != null:
+        DebugIdLabel.text = str(interactable_id)
+
 func _on_interaction_requested(id: StringName) -> void:
     if id == interactable_id:
         examine_requested.emit(evidence_id, object_title, description_found)
-
-func _ready() -> void:
-    interaction_requested.connect(_on_interaction_requested)

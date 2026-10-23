@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/investigation/investigation_controller.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/investigation/player/investigator.tscn" id="2"]
@@ -22,16 +22,18 @@ color = Color(0.15, 0.18, 0.22, 1.0)
 
 [node name="WalkableGeometry" type="StaticBody2D" parent="Environment"]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalkableGeometry"]
-shape = ExtResource("::999888777")
+shape = SubResource(1)
 
 [node name="Actors" type="Node2D" parent="."]
-[node name="Investigator" type="Node2D" parent="Actors"]
+[node name="Investigator" parent="Actors"]
 instance = ExtResource(2)
 
 [node name="Interactables" type="Node2D" parent="."]
 
 [node name="InteractionScanner" type="Node" parent="."]
 script = ExtResource("res://scripts/player/interaction_scanner.gd")
+player_node = "Actors/Investigator"
+interaction_range = 90.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

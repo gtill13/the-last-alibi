@@ -1,7 +1,7 @@
 extends Node
 class_name InteractionScanner
 
-signal interaction_target_changed(target_id: StringName)
+signal interaction_target_changed(target_id: StringName, interaction_label: String)
 signal interaction_target_lost
 
 @export var interaction_range: float = 90.0
@@ -23,11 +23,12 @@ func register_interactable(interactable: Interactable) -> void:
 func unregister_interactable(interactable: Interactable) -> void:
     nearby_interactables.erase(interactable)
     if current_target == interactable:
+        _set_target_highlighted(false)
         current_target = null
         interaction_target_lost.emit()
 
 func _update_nearby() -> void:
-    # Mantém a lista sincronizada com base na distância real ao jogador.
+    # Decisão 1: detecção por distância euclidiana simples.
     var player_pos: Vector2 = player_node.global_position
     var still_nearby: Array[Interactable] = []
     for interactable in nearby_interactables:
@@ -39,7 +40,7 @@ func _update_nearby() -> void:
     nearby_interactables = still_nearby
 
 func _select_best_target() -> void:
-    # Escolhe o interagível mais próximo, com desempate determinístico por ID.
+    # Decisão 2: mais próximo, desempate determinístico por ID lexicográfico.
     var player_pos: Vector2 = player_node.global_position
     var best: Interactable = null
     var best_distance: float = interaction_range
@@ -60,11 +61,17 @@ func _select_best_target() -> void:
                 best_id = interactable.interactable_id
 
     if best != current_target:
+        _set_target_highlighted(false)
         current_target = best
         if best != null:
-            interaction_target_changed.emit(best.interactable_id)
+            _set_target_highlighted(true)
+            interaction_target_changed.emit(best.interactable_id, best.interaction_label)
         else:
             interaction_target_lost.emit()
+
+func _set_target_highlighted(highlighted: Boolean) -> void:
+    if current_target != null:
+        current_target.set_highlighted(highlighted)
 
 func get_current_target() -> Interactable:
     return current_target

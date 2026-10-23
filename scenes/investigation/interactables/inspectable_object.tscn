@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/interactables/inspectable_object.gd" id="1"]
 
@@ -11,6 +11,16 @@ script = ExtResource(1)
 size = Vector2(32, 32)
 color = Color(0.8, 0.6, 0.2, 1.0)
 
+[node name="Outline" type="ColorRect" parent="."]
+size = Vector2(40, 40)
+color = Color(1.0, 1.0, 0.0, 0.35)
+visible = false
+
 [node name="NameLabel" type="Label" parent="."]
 text = "Objeto"
 visible = false
+
+[node name="DebugIdLabel" type="Label" parent="."]
+text = ""
+visible = false
+custom_constants/min_size = Vector2(100, 20)

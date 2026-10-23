@@ -9,7 +9,7 @@ class_name InvestigationController
 @onready var trial_report: Node = $ModalLayer/TrialReport
 @onready var confirmation_dialog: AcceptDialog = $ModalLayer/ConfirmationDialog
 
-# Serviços e estado (injetados pelo Main ou criados aqui).
+# Serviços e estado.
 var case_session: CaseSession
 var case_definition: CaseDefinition
 var evidence_service: EvidenceService
@@ -24,6 +24,11 @@ func _ready() -> void:
     scanner.interaction_target_changed.connect(_on_target_changed)
     scanner.interaction_target_lost.connect(_on_target_lost)
     scanner.player_node = $Actors/Investigator
+
+    # Decisão 4: one-shot por evento de pressionamento da tecla E.
+    var investigator = $Actors/Investigator
+    if investigator is InvestigatorController:
+        investigator.interact_pressed.connect(_on_interact_pressed)
 
     confirmation_dialog.confirmed.connect(_on_confirm_exit)
     confirmation_dialog.canceled.connect(_on_cancel_exit)
@@ -40,6 +45,10 @@ func _connect_interactables() -> void:
     for child in interactables_node.get_children():
         if child is Interactable:
             scanner.register_interactable(child)
+            # Desregistro automático quando o objeto sai de cena (Decisão 7).
+            child.exit_tree.connect(func():
+                scanner.unregister_interactable(child)
+            )
             child.interaction_requested.connect(func(id: StringName):
                 scanner.interact_with_current()
             )
@@ -56,9 +65,7 @@ func _connect_interactables() -> void:
                 confirmation_dialog.show()
             )
 
-
 func _init_services() -> void:
-    # Para o MVP, carrega o caso definido nos IDs. Em produção, o Main passaria o CaseDefinition.
     case_definition = load("res://data/cases/bellweather_apartment/case_definition.tres")
     case_session = CaseSession.new(case_definition)
 
@@ -75,19 +82,12 @@ func _init_services() -> void:
     dossier_model = DossierModel.new()
     dossier_validator = DossierValidator.new()
 
-    # Vincula aos painéis de UI.
-    var hud_prompt = hud.get_node("InteractionPrompt")
-    if hud_prompt != null:
-        hud_prompt.show_prompt = func(_): pass  # placeholder
-
-    var notebook_ui = notebook_screen.get_node("NotebookScreenUI") if notebook_screen.has_node("NotebookScreenUI") else null
-    # O notebook_screen usa o script NotebookScreenUI diretamente no nó raiz.
-
-func _on_target_changed(target_id: StringName) -> void:
+func _on_target_changed(target_id: StringName, interaction_label: String) -> void:
+    # Decisão 5: texto dinâmico por tipo do interagível.
     current_interactable_id = target_id
     var prompt = _get_prompt()
     if prompt != null:
-        prompt.show_prompt(target_id)
+        prompt.show_prompt(target_id, interaction_label)
 
 func _on_target_lost() -> void:
     current_interactable_id = &""
@@ -101,7 +101,7 @@ func _get_prompt() -> InteractionPrompt:
         return hud_canvas.get_node("InteractionPrompt")
     return null
 
-func on_interact_pressed() -> void:
+func _on_interact_pressed() -> void:
     var target = scanner.get_current_target()
     if target == null:
         return
@@ -114,7 +114,6 @@ func _on_inspectable_examine_requested(evidence_id: StringName, title: String, d
         return
     case_session.mark_examined(evidence_id)
     _show_message("Examinado: %s\n%s" % [title, description])
-    # Perguntar se quer registrar (no MVP, registra automaticamente ao examinar pela primeira vez).
     var already = case_session.has_evidence(evidence_id)
     if not already:
         evidence_service.register_evidence(evidence_id)
@@ -131,26 +130,20 @@ func _on_topic_selected(topic_id: StringName) -> void:
     var topic = _find_topic(topic_id)
     if topic == null:
         return
-    # Verificar requisito de evidência.
     var rules = InvestigationRules.new()
     if not rules.is_topic_available(topic, case_session.collected_evidence_ids):
         _show_message("Você precisa de mais contexto para pressionar essa pessoa.")
         return
-    # Gravar resposta.
     var transcript = [
         {"speaker": "detetive", "text": topic.question_text, "step": 0},
         {"speaker": topic_id, "text": topic.answer_text, "step": 0}
     ]
     interview_service.record_interview(current_suspect_id, topic_id, transcript)
     _refresh_notebook()
-    # Desbloquear follow-ups.
-    for follow_id in topic.follow_up_topic_ids:
-        pass  # disponibilizado no próximo open_dialogue
 
 var current_suspect_id: StringName = &""
 
 func _find_topic(topic_id: StringName) -> InterviewTopicDefinition:
-    # Busca o tópico pelo ID entre todos os suspeitos (simplificado).
     for suspect in case_definition.suspects:
         for topic in suspect.interview_topics:
             if topic.topic_id == topic_id:
@@ -193,12 +186,10 @@ func _on_dossier_cancelled() -> void:
 
 func _on_trial_closed() -> void:
     trial_report.hide()
-    # Reiniciar o caso: nova sessão limpa.
     case_session.reset()
     get_tree().change_scene_to_file("res://scenes/app/main_menu.tscn")
 
 func _show_message(text: String) -> void:
-    # Placeholder para mensagem no HUD (implementação visual futura).
     print("[INVESTIGAÇÃO] %s" % [text])
 
 func _on_input(event: InputEvent) -> void:
