@@ -1,0 +1,170 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_qkv5e"]
+
+[resource]
+script = ExtResource("1_qkv5e")
+definition_id = &"hotel_desk"
+logical_size = Vector2i(190, 90)
+pivot = Vector2(95, 90)
+commands = Array[Dictionary]([{
+"color": Color(0, 0, 0, 0.35),
+"points": PackedVector2Array(-10, 90, 10, 84, 180, 84, 200, 90, 180, 96, 10, 96),
+"type": "polygon"
+}, {
+"color": Color(0.47843137, 0.2901961, 0.21960784, 1),
+"filled": true,
+"position": Vector2(0, 0),
+"size": Vector2(190, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.65882355, 0.41568628, 0.2901961, 1),
+"filled": true,
+"position": Vector2(0, 0),
+"size": Vector2(190, 4),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.2901961, 0.1764706, 0.14901961, 1),
+"filled": true,
+"position": Vector2(8, 16),
+"size": Vector2(174, 62),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.3529412, 0.21960784, 0.1882353, 1),
+"filled": true,
+"position": Vector2(16, 22),
+"size": Vector2(158, 48),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.22745098, 0.14117648, 0.12156863, 1),
+"filled": true,
+"position": Vector2(24, 26),
+"size": Vector2(64, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.22745098, 0.14117648, 0.12156863, 1),
+"filled": true,
+"position": Vector2(24, 46),
+"size": Vector2(64, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.22745098, 0.14117648, 0.12156863, 1),
+"filled": true,
+"position": Vector2(102, 26),
+"size": Vector2(60, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.22745098, 0.14117648, 0.12156863, 1),
+"filled": true,
+"position": Vector2(102, 46),
+"size": Vector2(60, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"center": Vector2(56, 34),
+"color": Color(0.65882355, 0.5176471, 0.23529412, 1),
+"radius": 3.0,
+"type": "circle"
+}, {
+"center": Vector2(56, 54),
+"color": Color(0.65882355, 0.5176471, 0.23529412, 1),
+"radius": 3.0,
+"type": "circle"
+}, {
+"center": Vector2(132, 34),
+"color": Color(0.65882355, 0.5176471, 0.23529412, 1),
+"radius": 3.0,
+"type": "circle"
+}, {
+"center": Vector2(132, 54),
+"color": Color(0.65882355, 0.5176471, 0.23529412, 1),
+"radius": 3.0,
+"type": "circle"
+}, {
+"color": Color(0.18039216, 0.10980392, 0.09411765, 1),
+"filled": true,
+"position": Vector2(10, 78),
+"size": Vector2(12, 12),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.18039216, 0.10980392, 0.09411765, 1),
+"filled": true,
+"position": Vector2(168, 78),
+"size": Vector2(12, 12),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.8509804, 0.8235294, 0.6901961, 1),
+"filled": true,
+"position": Vector2(36, -2),
+"size": Vector2(38, 10),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.9098039, 0.8745098, 0.7490196, 1),
+"filled": true,
+"position": Vector2(42, 0),
+"size": Vector2(32, 8),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.47843137, 0.45490196, 0.3764706, 1),
+"from": Vector2(46, 2),
+"to": Vector2(70, 2),
+"type": "line",
+"width": 1.0
+}, {
+"color": Color(0.47843137, 0.45490196, 0.3764706, 1),
+"from": Vector2(46, 4),
+"to": Vector2(66, 4),
+"type": "line",
+"width": 1.0
+}, {
+"center": Vector2(86, 4),
+"color": Color(0.6901961, 0.7176471, 0.7529412, 1),
+"radius": 5.0,
+"type": "circle"
+}, {
+"color": Color(0.6901961, 0.7176471, 0.7529412, 1),
+"from": Vector2(91, 2),
+"to": Vector2(94, 4),
+"type": "line",
+"width": 2.0
+}, {
+"color": Color(0.16470589, 0.13725491, 0.1254902, 1),
+"filled": true,
+"position": Vector2(128, -2),
+"size": Vector2(24, 4),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.16470589, 0.13725491, 0.1254902, 1),
+"filled": true,
+"position": Vector2(138, -30),
+"size": Vector2(4, 28),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.8509804, 0.6431373, 0.25490198, 1),
+"points": PackedVector2Array(120, -32, 160, -32, 168, -12, 112, -12),
+"type": "polygon"
+}, {
+"color": Color(0.9411765, 0.7529412, 0.3764706, 1),
+"from": Vector2(120, -32),
+"to": Vector2(160, -32),
+"type": "line",
+"width": 2.0
+}, {
+"center": Vector2(140, -14),
+"color": Color(1, 0.9019608, 0.65882355, 1),
+"radius": 6.0,
+"type": "circle"
+}])

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_renderer.gd" id="1"]
+[ext_resource type="Resource" path="res://art/definitions/hotel_desk.tres" id="2"]
+
+[node name="HotelDesk" type="Node2D"]
+
+[node name="Art" type="Node2D" parent="."]
+script = ExtResource("1")
+definition = ExtResource("2")

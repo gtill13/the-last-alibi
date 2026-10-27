@@ -1,0 +1,200 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_i1pfr"]
+
+[resource]
+script = ExtResource("1_i1pfr")
+definition_id = &"room_background"
+logical_size = Vector2i(1280, 720)
+commands = Array[Dictionary]([{
+"color": Color(0.105882354, 0.13725491, 0.18039216, 1),
+"filled": true,
+"position": Vector2(0, 0),
+"size": Vector2(1280, 520),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.16862746, 0.21176471, 0.26666668, 1),
+"filled": true,
+"position": Vector2(0, 512),
+"size": Vector2(1280, 10),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.06666667, 0.08627451, 0.10980392, 1),
+"filled": true,
+"position": Vector2(0, 520),
+"size": Vector2(1280, 200),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.13725491, 0.1764706, 0.22745098, 1),
+"from": Vector2(320, 0),
+"to": Vector2(320, 512),
+"type": "line",
+"width": 2.0
+}, {
+"color": Color(0.13725491, 0.1764706, 0.22745098, 1),
+"from": Vector2(640, 0),
+"to": Vector2(640, 512),
+"type": "line",
+"width": 2.0
+}, {
+"color": Color(0.13725491, 0.1764706, 0.22745098, 1),
+"from": Vector2(960, 0),
+"to": Vector2(960, 512),
+"type": "line",
+"width": 2.0
+}, {
+"color": Color(0.09411765, 0.1254902, 0.16078432, 1),
+"from": Vector2(0, 560),
+"to": Vector2(1280, 560),
+"type": "line",
+"width": 1.0
+}, {
+"color": Color(0.09411765, 0.1254902, 0.16078432, 1),
+"from": Vector2(0, 600),
+"to": Vector2(1280, 600),
+"type": "line",
+"width": 1.0
+}, {
+"color": Color(0.09411765, 0.1254902, 0.16078432, 1),
+"from": Vector2(0, 640),
+"to": Vector2(1280, 640),
+"type": "line",
+"width": 1.0
+}, {
+"color": Color(0.09411765, 0.1254902, 0.16078432, 1),
+"from": Vector2(0, 680),
+"to": Vector2(1280, 680),
+"type": "line",
+"width": 1.0
+}, {
+"color": Color(0.32, 0.45, 0.65, 0.06),
+"points": PackedVector2Array(820, 520, 1100, 520, 1160, 720, 760, 720),
+"type": "polygon"
+}, {
+"color": Color(0.16470589, 0.12156863, 0.14117648, 1),
+"points": PackedVector2Array(260, 590, 620, 590, 660, 690, 220, 690),
+"type": "polygon"
+}, {
+"color": Color(0.20784314, 0.14901961, 0.17254902, 1),
+"points": PackedVector2Array(280, 600, 600, 600, 632, 678, 248, 678),
+"type": "polygon"
+}, {
+"color": Color(0.2901961, 0.20784314, 0.2509804, 1),
+"from": Vector2(280, 600),
+"to": Vector2(600, 600),
+"type": "line",
+"width": 2.0
+}, {
+"color": Color(0.16470589, 0.12941177, 0.11372549, 1),
+"filled": true,
+"position": Vector2(50, 250),
+"size": Vector2(130, 262),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.22745098, 0.16862746, 0.14509805, 1),
+"filled": true,
+"position": Vector2(62, 262),
+"size": Vector2(106, 238),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.2, 0.14509805, 0.12156863, 1),
+"filled": true,
+"position": Vector2(70, 270),
+"size": Vector2(90, 100),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.2, 0.14509805, 0.12156863, 1),
+"filled": true,
+"position": Vector2(70, 380),
+"size": Vector2(90, 112),
+"type": "rect",
+"width": 1.0
+}, {
+"center": Vector2(70, 390),
+"color": Color(0.65882355, 0.5176471, 0.23529412, 1),
+"radius": 4.0,
+"type": "circle"
+}, {
+"color": Color(0.16470589, 0.12941177, 0.11372549, 1),
+"filled": true,
+"position": Vector2(860, 110),
+"size": Vector2(210, 240),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.078431375, 0.14117648, 0.22745098, 1),
+"filled": true,
+"position": Vector2(872, 122),
+"size": Vector2(186, 216),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.105882354, 0.18431373, 0.2901961, 1),
+"filled": true,
+"position": Vector2(872, 122),
+"size": Vector2(186, 104),
+"type": "rect",
+"width": 1.0
+}, {
+"center": Vector2(1010, 172),
+"color": Color(0.9019608, 0.8627451, 0.72156864, 1),
+"radius": 20.0,
+"type": "circle"
+}, {
+"color": Color(0.050980393, 0.09411765, 0.14901961, 1),
+"points": PackedVector2Array(872, 300, 900, 270, 930, 300, 960, 250, 990, 300, 1020, 280, 1058, 300, 1058, 338, 872, 338),
+"type": "polygon"
+}, {
+"color": Color(0.22745098, 0.16862746, 0.14509805, 1),
+"from": Vector2(965, 122),
+"to": Vector2(965, 338),
+"type": "line",
+"width": 5.0
+}, {
+"color": Color(0.22745098, 0.16862746, 0.14509805, 1),
+"from": Vector2(872, 230),
+"to": Vector2(1058, 230),
+"type": "line",
+"width": 5.0
+}, {
+"color": Color(0.2901961, 0.22745098, 0.1882353, 1),
+"from": Vector2(860, 110),
+"to": Vector2(1070, 110),
+"type": "line",
+"width": 3.0
+}, {
+"color": Color(0.22745098, 0.16862746, 0.14509805, 1),
+"filled": true,
+"position": Vector2(848, 350),
+"size": Vector2(234, 12),
+"type": "rect",
+"width": 1.0
+}, {
+"center": Vector2(700, 150),
+"color": Color(0.16470589, 0.13725491, 0.1254902, 1),
+"radius": 28.0,
+"type": "circle"
+}, {
+"center": Vector2(700, 150),
+"color": Color(0.8509804, 0.8235294, 0.6901961, 1),
+"radius": 23.0,
+"type": "circle"
+}, {
+"color": Color(0.16470589, 0.13725491, 0.1254902, 1),
+"from": Vector2(700, 150),
+"to": Vector2(700, 136),
+"type": "line",
+"width": 2.0
+}, {
+"color": Color(0.16470589, 0.13725491, 0.1254902, 1),
+"from": Vector2(700, 150),
+"to": Vector2(710, 156),
+"type": "line",
+"width": 2.0
+}])

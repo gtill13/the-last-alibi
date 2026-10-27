@@ -74,6 +74,37 @@ As capturas ficam em `tests/manual/screenshots/fase1/` (diretório marcado com `
 - [x] O ID de depuração e o contorno aparecem sobre o alvo ativo
 - [x] Não há referência inválida ao desativar ou liberar o alvo ativo (teste de integração)
 
+---
+
+## Demo de arte procedural
+
+A demo é independente do M1 e valida o sistema descrito em `docs/ARTE_PROCEDURAL.md`.
+
+```bash
+export GODOT_BIN="/home/till/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64"
+"$GODOT_BIN" --path . res://scenes/procedural/procedural_art_demo.tscn
+```
+
+Na demo, **1** volta para a mesa de madeira clara e **2** troca para a variante escura. Tudo é desenhado por código; não há sprites, texturas ou imagens externas.
+
+### Driver auxiliar
+
+```bash
+./tests/manual/driver_procedural_art.sh
+```
+
+O driver captura a cena padrão, a variante escura e o retorno à variante clara em `tests/manual/screenshots/procedural-art/`.
+
+### Checklist da demo
+
+- [x] Fundo, mesa, planta, quadro e detetive aparecem sem sprites
+- [x] O mesmo renderer desenha todos os objetos
+- [x] A tecla 2 troca a definição da mesa e o desenho muda
+- [x] A tecla 1 retorna à definição original
+- [x] Duas instâncias do mesmo prefab podem ocupar posições independentes
+- [x] O cache reutiliza instâncias e respeita o limite do pool (testes automatizados)
+- [x] A cena abre em 1280×720 sem erros ou warnings de desenho
+
 ## Observações
 
 - O empate exato de distância é validado por teste de integração determinístico; a temporização de teclado não garante posições fracionárias exatas.

@@ -9,3 +9,5 @@
 - Cena de teste (investigação) com investigador, câmera e área de teste
 - M1 concluído: movimento lateral, câmera com limites, scanner por proximidade, prompt contextual e três alvos de teste
 - Testes automatizados do M1 (35 testes) e registro manual em `docs/M1_TESTS.md`
+- Protótipo de arte 100% procedural: `ProceduralArtDefinition`, renderer genérico, cache de prefabs, 6 definições, 5 prefabs e cena-demo
+- Testes da arte procedural (23 novos, 58 no total) e validação visual em `docs/ARTE_PROCEDURAL.md`

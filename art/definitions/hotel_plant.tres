@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_a2aen"]
+
+[resource]
+script = ExtResource("1_a2aen")
+definition_id = &"hotel_plant"
+logical_size = Vector2i(80, 120)
+pivot = Vector2(40, 120)
+commands = Array[Dictionary]([{
+"color": Color(0, 0, 0, 0.3),
+"points": PackedVector2Array(5, 120, 20, 114, 60, 114, 75, 120, 60, 126, 20, 126),
+"type": "polygon"
+}, {
+"color": Color(0.5411765, 0.29411766, 0.19607843, 1),
+"points": PackedVector2Array(18, 80, 62, 80, 54, 120, 26, 120),
+"type": "polygon"
+}, {
+"color": Color(0.65882355, 0.3529412, 0.22745098, 1),
+"filled": true,
+"position": Vector2(14, 74),
+"size": Vector2(52, 10),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.16470589, 0.10980392, 0.09411765, 1),
+"filled": true,
+"position": Vector2(22, 78),
+"size": Vector2(36, 4),
+"type": "rect",
+"width": 1.0
+}, {
+"color": Color(0.24705882, 0.37254903, 0.22745098, 1),
+"from": Vector2(40, 80),
+"to": Vector2(30, 40),
+"type": "line",
+"width": 3.0
+}, {
+"color": Color(0.24705882, 0.37254903, 0.22745098, 1),
+"from": Vector2(40, 80),
+"to": Vector2(52, 32),
+"type": "line",
+"width": 3.0
+}, {
+"color": Color(0.24705882, 0.37254903, 0.22745098, 1),
+"from": Vector2(40, 80),
+"to": Vector2(20, 52),
+"type": "line",
+"width": 3.0
+}, {
+"color": Color(0.30980393, 0.47843137, 0.2901961, 1),
+"points": PackedVector2Array(30, 40, 14, 30, 18, 18, 34, 30),
+"type": "polygon"
+}, {
+"color": Color(0.37254903, 0.5411765, 0.3372549, 1),
+"points": PackedVector2Array(30, 40, 44, 26, 56, 32, 40, 46),
+"type": "polygon"
+}, {
+"color": Color(0.30980393, 0.47843137, 0.2901961, 1),
+"points": PackedVector2Array(52, 32, 64, 20, 74, 28, 58, 42),
+"type": "polygon"
+}, {
+"color": Color(0.37254903, 0.5411765, 0.3372549, 1),
+"points": PackedVector2Array(52, 32, 44, 14, 56, 10, 62, 24),
+"type": "polygon"
+}, {
+"color": Color(0.24705882, 0.41568628, 0.22745098, 1),
+"points": PackedVector2Array(20, 52, 6, 44, 4, 32, 22, 40),
+"type": "polygon"
+}, {
+"color": Color(0.37254903, 0.5411765, 0.3372549, 1),
+"points": PackedVector2Array(20, 52, 28, 34, 38, 38, 28, 56),
+"type": "polygon"
+}, {
+"center": Vector2(60, 24),
+"color": Color(0.8509804, 0.6431373, 0.25490198, 1),
+"radius": 5.0,
+"type": "circle"
+}])
