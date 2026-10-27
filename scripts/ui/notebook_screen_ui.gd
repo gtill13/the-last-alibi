@@ -3,8 +3,8 @@ class_name NotebookScreenUI
 
 signal notebook_closed
 
-@onready var evidence_list: ItemList = $Panel/EvidenceList
-@onready var interview_list: ItemList = $Panel/InterviewList
+@onready var evidence_list: ItemList = $Panel/TabContainer/EvidenceTab/EvidenceList
+@onready var interview_list: ItemList = $Panel/TabContainer/InterviewsTab/InterviewList
 @onready var close_button: Button = $Panel/CloseButton
 @onready var tab_container: TabContainer = $Panel/TabContainer
 
@@ -25,8 +25,9 @@ func _refresh() -> void:
     evidence_list.clear()
     for entry in notebook_model.get_collected_evidence_titles():
         evidence_list.add_item(entry["title"])
-        evidence_list.set_item_metadata(evidence_list.get_item_count() - 1, entry["id"])
-        evidence_list.add_subitem(entry["description"], -1, false)
+        var item_index := evidence_list.get_item_count() - 1
+        evidence_list.set_item_metadata(item_index, entry["id"])
+        evidence_list.set_item_tooltip(item_index, entry["description"])
 
     interview_list.clear()
     for entry in notebook_model.get_interview_summaries():

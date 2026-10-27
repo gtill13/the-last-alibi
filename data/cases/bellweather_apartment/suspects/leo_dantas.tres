@@ -1,16 +1,9 @@
-[gd_resource type="SuspectDefinition" load_steps=3 format=3]
+[gd_resource type="Resource" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/suspect_definition.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/resources/interview_topic_definition.gd" id="2"]
 
-[resource]
-script = ExtResource(1)
-suspect_id = &"suspect_leo_dantas"
-display_name = "Leo Dantas"
-short_bio = "Vizinho do andar de baixo. Tinha desavenças com a vítima."
-known_relationship = "Vizinho; reclamava do barulho do apartamento."
-
-[sub_resource id="1"]
+[sub_resource type="Resource" id="1"]
 script = ExtResource(2)
 topic_id = &"leo_motive"
 question_text = "Qual era sua relação com a vítima?"
@@ -20,7 +13,7 @@ required_evidence_id = &""
 revealed_fact_ids = []
 follow_up_topic_ids = [&"leo_alibi"]
 
-[sub_resource id="2"]
+[sub_resource type="Resource" id="2"]
 script = ExtResource(2)
 topic_id = &"leo_alibi"
 question_text = "Onde você estava na noite do crime?"
@@ -30,4 +23,10 @@ required_evidence_id = &"evidence_receipt"
 revealed_fact_ids = []
 follow_up_topic_ids = []
 
+[resource]
+script = ExtResource(1)
+suspect_id = &"suspect_leo_dantas"
+display_name = "Leo Dantas"
+short_bio = "Vizinho do andar de baixo. Tinha desavenças com a vítima."
+known_relationship = "Vizinho; reclamava do barulho do apartamento."
 interview_topics = [SubResource(1), SubResource(2)]

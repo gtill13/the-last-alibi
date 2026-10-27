@@ -11,7 +11,6 @@ func _instantiate_menu():
 	var scene: PackedScene = load(MENU_SCENE_PATH)
 	var menu = scene.instantiate()
 	tree.root.add_child(menu)
-	menu.propagate_notification(Node.NOTIFICATION_READY)
 	return menu
 
 

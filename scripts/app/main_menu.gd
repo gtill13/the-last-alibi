@@ -6,6 +6,7 @@ extends Control
 func _ready() -> void:
     button_start.pressed.connect(_on_start_pressed)
     button_quit.pressed.connect(_on_quit_pressed)
+    button_start.grab_focus()
 
 func _on_start_pressed() -> void:
     var main = get_node("../..")

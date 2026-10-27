@@ -20,6 +20,12 @@ func _initialize() -> void:
 	_input_map_add_action("cancel", KEY_ESCAPE)
 	_input_map_add_action("confirm", KEY_ENTER)
 
+	# _initialize roda antes de a raiz entrar na árvore. Adiar permite que as
+	# cenas de teste recebam _ready e os sinais de Area2D funcionem de verdade.
+	_run_all.call_deferred()
+
+
+func _run_all() -> void:
 	for suite_dir: String in SUITE_DIRS:
 		_run_directory(suite_dir)
 
@@ -35,8 +41,9 @@ func _initialize() -> void:
 
 func _input_map_add_action(action_name: String, keycode: int) -> void:
 	var input_map = InputMap
-	if not input_map.has_action(action_name):
-		input_map.add_action(action_name)
+	if input_map.has_action(action_name):
+		return
+	input_map.add_action(action_name)
 	var event = InputEventKey.new()
 	event.keycode = keycode
 	event.pressed = true

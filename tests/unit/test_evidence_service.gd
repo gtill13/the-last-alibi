@@ -9,7 +9,8 @@ func test_rejects_duplicate_evidence() -> void:
 
 	var evid = EvidenceDefinition.new()
 	evid.evidence_id = &"evid_1"
-	case_def.evidence_catalog = [evid]
+	var evidence_catalog: Array[EvidenceDefinition] = [evid]
+	case_def.evidence_catalog = evidence_catalog
 
 	var session = CaseSession.new(case_def)
 	var service = EvidenceService.new()

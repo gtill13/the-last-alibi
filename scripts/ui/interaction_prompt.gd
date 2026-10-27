@@ -1,15 +1,29 @@
-extends Control
 class_name InteractionPrompt
+extends Control
+
+## HUD fixa na tela. Recebe apenas o alvo ativo e exibe ação + nome legível.
 
 var current_target_id: StringName = &""
 
-# Decisão 5: texto dinâmico por tipo do interagível.
-func show_prompt(target_id: StringName, interaction_label: String = "Interagir") -> void:
-    current_target_id = target_id
-    var label = $PromptLabel
-    label.text = "[E] %s" % [interaction_label]
-    visible = true
+@onready var prompt_label: Label = $PromptLabel
+
+
+func _ready() -> void:
+	hide_prompt()
+
+
+func show_for_target(target: Interactable) -> void:
+	if not is_instance_valid(target) or not target.can_interact():
+		hide_prompt()
+		return
+
+	current_target_id = target.interactable_id
+	prompt_label.text = "[E] %s — %s" % [target.interaction_label, target.display_name]
+	visible = true
+
 
 func hide_prompt() -> void:
-    current_target_id = &""
-    visible = false
+	current_target_id = &""
+	visible = false
+	if prompt_label != null:
+		prompt_label.text = ""

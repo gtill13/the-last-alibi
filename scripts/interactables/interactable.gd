@@ -1,40 +1,59 @@
-extends Area2D
 class_name Interactable
+extends Area2D
 
-signal interaction_requested(interactable_id: StringName)
+## Zona detectável de um alvo de interação. A área não bloqueia o jogador;
+## colisões físicas devem usar um StaticBody2D separado.
+
+signal interaction_requested(target: Interactable)
 
 @export var interactable_id: StringName = &""
 @export var interaction_label: String = "Interagir"
+@export var display_name: String = "Objeto"
 @export var is_interactable: bool = true
 @export var show_debug_id: bool = true
 
-# Nó de contorno visual (definido na cena filha via @onready).
 var outline_node: Node2D = null
-# Label de depuração com o ID estável.
 var debug_label: Label = null
 
+
 func _ready() -> void:
-    if not is_interactable:
-        monitoring = false
-    # Tenta encontrar nós de contorno e debug definidos na cena filha.
-    outline_node = get_node_or_null("Outline")
-    debug_label = get_node_or_null("DebugIdLabel")
-    _set_outline_visible(false)
-    _set_debug_label_visible(false)
+	outline_node = get_node_or_null("Outline") as Node2D
+	debug_label = get_node_or_null("DebugIdLabel") as Label
+	_set_outline_visible(false)
+	_set_debug_label_visible(false)
+
+
+func can_interact() -> bool:
+	return (
+		is_interactable
+		and is_inside_tree()
+		and not is_queued_for_deletion()
+	)
+
 
 func request_interaction() -> void:
-    if is_interactable:
-        interaction_requested.emit(interactable_id)
+	if can_interact():
+		interaction_requested.emit(self)
 
-# Chamado pelo scanner quando este interagível se torna o alvo ativo (próximo).
+
 func set_highlighted(highlighted: bool) -> void:
-    _set_outline_visible(highlighted)
-    _set_debug_label_visible(highlighted and show_debug_id)
+	_set_outline_visible(highlighted)
+	_set_debug_label_visible(highlighted and show_debug_id)
 
-func _set_outline_visible(visible: bool) -> void:
-    if outline_node != null:
-        outline_node.visible = visible
 
-func _set_debug_label_visible(visible: bool) -> void:
-    if debug_label != null:
-        debug_label.visible = visible
+func get_prompt_action() -> String:
+	return interaction_label
+
+
+func get_prompt_name() -> String:
+	return display_name
+
+
+func _set_outline_visible(is_visible: bool) -> void:
+	if outline_node != null:
+		outline_node.visible = is_visible
+
+
+func _set_debug_label_visible(is_visible: bool) -> void:
+	if debug_label != null:
+		debug_label.visible = is_visible

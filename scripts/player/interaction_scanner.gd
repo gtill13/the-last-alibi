@@ -1,80 +1,143 @@
-extends Node
 class_name InteractionScanner
+extends Area2D
 
-signal interaction_target_changed(target_id: StringName, interaction_label: String)
-signal interaction_target_lost
+## Detecta Interactables sobrepostos ao círculo do scanner e mantém apenas o
+## alvo válido mais próximo ativo. A seleção não depende da ordem dos sinais
+## de área: usa distância ao pivô e, em empate exato, o ID lexicográfico.
 
-@export var interaction_range: float = 90.0
-@export var player_node: Node2D
+signal active_target_changed(target: Interactable)
+signal interaction_requested(target: Interactable)
 
-var current_target: Interactable = null
-var nearby_interactables: Array[Interactable] = []
+var _nearby_targets: Array[Interactable] = []
+var _active_target: Interactable = null
+
+
+func _ready() -> void:
+	if not area_entered.is_connected(_on_area_entered):
+		area_entered.connect(_on_area_entered)
+	if not area_exited.is_connected(_on_area_exited):
+		area_exited.connect(_on_area_exited)
+
 
 func _physics_process(_delta: float) -> void:
-    if player_node == null:
-        return
-    _update_nearby()
-    _select_best_target()
+	_refresh_active_target()
+
 
 func register_interactable(interactable: Interactable) -> void:
-    if not nearby_interactables.has(interactable):
-        nearby_interactables.append(interactable)
+	if not is_instance_valid(interactable):
+		return
+	if not _nearby_targets.has(interactable):
+		_nearby_targets.append(interactable)
+	_refresh_active_target()
+
 
 func unregister_interactable(interactable: Interactable) -> void:
-    nearby_interactables.erase(interactable)
-    if current_target == interactable:
-        _set_target_highlighted(false)
-        current_target = null
-        interaction_target_lost.emit()
+	_nearby_targets.erase(interactable)
+	if _active_target == interactable:
+		_set_target_highlighted(null)
+		_active_target = null
+		active_target_changed.emit(null)
 
-func _update_nearby() -> void:
-    # Decisão 1: detecção por distância euclidiana simples.
-    var player_pos: Vector2 = player_node.global_position
-    var still_nearby: Array[Interactable] = []
-    for interactable in nearby_interactables:
-        if not is_instance_valid(interactable):
-            continue
-        var distance: float = player_pos.distance_to(interactable.global_position)
-        if distance <= interaction_range:
-            still_nearby.append(interactable)
-    nearby_interactables = still_nearby
 
-func _select_best_target() -> void:
-    # Decisão 2: mais próximo, desempate determinístico por ID lexicográfico.
-    var player_pos: Vector2 = player_node.global_position
-    var best: Interactable = null
-    var best_distance: float = interaction_range
-    var best_id: StringName = &""
+func request_interaction_with_active_target() -> void:
+	_refresh_active_target()
 
-    for interactable in nearby_interactables:
-        if interactable == null or not interactable.is_interactable:
-            continue
-        var distance: float = player_pos.distance_to(interactable.global_position)
-        if distance < best_distance:
-            best = interactable
-            best_distance = distance
-            best_id = interactable.interactable_id
-        elif distance == best_distance and best != null:
-            # Desempate determinístico: menor ID lexicograficamente.
-            if interactable.interactable_id < best_id:
-                best = interactable
-                best_id = interactable.interactable_id
+	if not is_instance_valid(_active_target):
+		return
+	if not _active_target.can_interact():
+		return
 
-    if best != current_target:
-        _set_target_highlighted(false)
-        current_target = best
-        if best != null:
-            _set_target_highlighted(true)
-            interaction_target_changed.emit(best.interactable_id, best.interaction_label)
-        else:
-            interaction_target_lost.emit()
+	interaction_requested.emit(_active_target)
 
-func _set_target_highlighted(highlighted: bool) -> void:
-    if current_target != null:
-        current_target.set_highlighted(highlighted)
 
 func get_current_target() -> Interactable:
-    return current_target
+	return _active_target
 
-func interact_with_current() -> Interactable:
-    return current_target
+
+func get_interaction_range() -> float:
+	var circle := _get_circle_shape()
+	if circle == null:
+		return 0.0
+	return circle.radius
+
+
+func _on_area_entered(area: Area2D) -> void:
+	var target := area as Interactable
+	if target != null:
+		register_interactable(target)
+
+
+func _on_area_exited(area: Area2D) -> void:
+	var target := area as Interactable
+	if target != null:
+		unregister_interactable(target)
+
+
+func _refresh_active_target() -> void:
+	_prune_invalid_targets()
+
+	var best_target: Interactable = null
+	var best_distance_squared := INF
+	var max_range_squared := _get_circle_radius_squared()
+
+	for target in _nearby_targets:
+		if not target.can_interact():
+			continue
+
+		var distance_squared := global_position.distance_squared_to(target.global_position)
+		if distance_squared > max_range_squared:
+			continue
+
+		var is_closer := distance_squared < best_distance_squared
+		var is_exact_tie_with_lower_id := (
+			distance_squared == best_distance_squared
+			and best_target != null
+			and String(target.interactable_id) < String(best_target.interactable_id)
+		)
+
+		if best_target == null or is_closer or is_exact_tie_with_lower_id:
+			best_target = target
+			best_distance_squared = distance_squared
+
+	if best_target == _active_target:
+		return
+
+	_set_target_highlighted(best_target)
+	_active_target = best_target
+	if is_instance_valid(_active_target):
+		_active_target.set_highlighted(true)
+	active_target_changed.emit(_active_target)
+
+
+func _prune_invalid_targets() -> void:
+	for index in range(_nearby_targets.size() - 1, -1, -1):
+		var target := _nearby_targets[index]
+		if (
+			not is_instance_valid(target)
+			or target.is_queued_for_deletion()
+			or not target.is_inside_tree()
+		):
+			_nearby_targets.remove_at(index)
+
+
+func _set_target_highlighted(target: Interactable) -> void:
+	if is_instance_valid(_active_target) and _active_target != target:
+		_active_target.set_highlighted(false)
+
+
+func _get_circle_shape() -> CircleShape2D:
+	var shape_node := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape_node == null or shape_node.shape == null:
+		push_error("InteractionScanner: CollisionShape2D com CircleShape2D não configurado.")
+		return null
+	var circle := shape_node.shape as CircleShape2D
+	if circle == null:
+		push_error("InteractionScanner: a forma de colisão deve ser CircleShape2D.")
+	return circle
+
+
+func _get_circle_radius_squared() -> float:
+	var circle := _get_circle_shape()
+	if circle == null:
+		return 0.0
+	return circle.radius * circle.radius

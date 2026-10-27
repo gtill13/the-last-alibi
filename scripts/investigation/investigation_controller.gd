@@ -1,7 +1,8 @@
 extends Node2D
 class_name InvestigationController
 
-@onready var scanner = $InteractionScanner
+@onready var investigator: InvestigatorController = $Actors/Investigator
+@onready var scanner: InteractionScanner = $Actors/Investigator/InteractionScanner
 @onready var hud = $HUD
 @onready var dialogue_panel = $ModalLayer/DialoguePanel
 @onready var notebook_screen = $ModalLayer/NotebookScreen
@@ -21,18 +22,17 @@ var dossier_validator: DossierValidator
 var current_interactable_id: StringName = &""
 
 func _ready() -> void:
-	# Não inicializar serviços no editor (importação/registro de class_name).
-	if OS.has_feature("editor"):
+	# Não inicializar serviços quando a cena está aberta apenas no editor.
+	# (OS.has_feature("editor") também é true em builds de ferramentas, o que
+	# impedia a inicialização ao rodar o jogo por linha de comando ou pelo F5.)
+	if Engine.is_editor_hint():
 		return
 
-	_connect_signal_once(scanner, "interaction_target_changed", _on_target_changed)
-	_connect_signal_once(scanner, "interaction_target_lost", _on_target_lost)
-	scanner.player_node = $Actors/Investigator
+	_connect_signal_once(scanner, "active_target_changed", _on_active_target_changed)
+	_connect_signal_once(scanner, "interaction_requested", _on_interaction_requested)
 
 	# Decisão 4: one-shot por evento de pressionamento da tecla E.
-	var investigator = $Actors/Investigator
-	if investigator is InvestigatorController:
-		_connect_signal_once(investigator, "interact_pressed", _on_interact_pressed)
+	_connect_signal_once(investigator, "interact_pressed", _on_interact_pressed)
 
 	_connect_signal_once(confirmation_dialog, "confirmed", _on_confirm_exit)
 	_connect_signal_once(confirmation_dialog, "canceled", _on_cancel_exit)
@@ -41,7 +41,7 @@ func _ready() -> void:
 	_connect_signal_once(dossier_builder, "dossier_cancelled", _on_dossier_cancelled)
 	_connect_signal_once(trial_report, "trial_closed", _on_trial_closed)
 
-	_connect_interactables()
+	_validate_interactables()
 	_init_services()
 
 
@@ -50,30 +50,27 @@ func _connect_signal_once(src: Object, sig: StringName, callback: Callable) -> v
 		src.connect(sig, callback)
 
 
-func _connect_interactables() -> void:
-	var interactables_node = $Interactables
-	for child in interactables_node.get_children():
-		if child is Interactable:
-			scanner.register_interactable(child)
-			# Desregistro automático quando o objeto sai de cena (Decisão 7).
-			child.exit_tree.connect(func():
-				scanner.unregister_interactable(child)
+func _validate_interactables() -> void:
+	var seen_ids: Dictionary = {}
+	for node in get_tree().get_nodes_in_group("interactables"):
+		if not node is Interactable:
+			push_error("InvestigationController: nó no grupo 'interactables' não é Interactable: %s" % node.get_path())
+			continue
+		var target := node as Interactable
+		if target.interactable_id == &"":
+			push_error("InvestigationController: Interactable sem ID: %s" % target.get_path())
+			continue
+		if seen_ids.has(target.interactable_id):
+			var other := seen_ids[target.interactable_id] as Interactable
+			push_error(
+				"InvestigationController: ID duplicado '%s' em %s e %s" % [
+					target.interactable_id,
+					other.get_path(),
+					target.get_path(),
+				]
 			)
-			child.interaction_requested.connect(func(id: StringName):
-				scanner.interact_with_current()
-			)
-		if child is InspectableObject:
-			child.examine_requested.connect(_on_inspectable_examine_requested)
-		if child is SuspectNPC:
-			child.interview_requested.connect(func(sid: StringName, name: String):
-				current_suspect_id = sid
-				_on_suspect_interview_requested(sid, name)
-			)
-		if child is ExitPoint:
-			child.exit_requested.connect(func():
-				confirmation_dialog.dialog_text = "Encerrar a visita e montar o dossiê?"
-				confirmation_dialog.show()
-			)
+			continue
+		seen_ids[target.interactable_id] = target
 
 func _init_services() -> void:
 	case_definition = load("res://data/cases/bellweather_apartment/case_definition.tres")
@@ -92,18 +89,15 @@ func _init_services() -> void:
 	dossier_model = DossierModel.new()
 	dossier_validator = DossierValidator.new()
 
-func _on_target_changed(target_id: StringName, interaction_label: String) -> void:
-	# Decisão 5: texto dinâmico por tipo do interagível.
-	current_interactable_id = target_id
+func _on_active_target_changed(target: Interactable) -> void:
+	# Decisão 5: prompt contextual com ação e nome legível.
+	current_interactable_id = target.interactable_id if is_instance_valid(target) else &""
 	var prompt = _get_prompt()
 	if prompt != null:
-		prompt.show_prompt(target_id, interaction_label)
-
-func _on_target_lost() -> void:
-	current_interactable_id = &""
-	var prompt = _get_prompt()
-	if prompt != null:
-		prompt.hide_prompt()
+		if is_instance_valid(target) and target.can_interact():
+			prompt.show_for_target(target)
+		else:
+			prompt.hide_prompt()
 
 func _get_prompt() -> InteractionPrompt:
 	var hud_canvas = $HUD
@@ -112,10 +106,30 @@ func _get_prompt() -> InteractionPrompt:
 	return null
 
 func _on_interact_pressed() -> void:
-	var target = scanner.get_current_target()
-	if target == null:
+	scanner.request_interaction_with_active_target()
+
+
+func _on_interaction_requested(target: Interactable) -> void:
+	if not is_instance_valid(target) or not target.can_interact():
 		return
-	target.request_interaction()
+
+	if target is InspectableObject:
+		var inspectable := target as InspectableObject
+		_on_inspectable_examine_requested(
+			inspectable.evidence_id,
+			inspectable.object_title,
+			inspectable.description_found
+		)
+	elif target is SuspectNPC:
+		var suspect := target as SuspectNPC
+		current_suspect_id = suspect.suspect_id
+		_on_suspect_interview_requested(suspect.suspect_id, suspect.display_name)
+	elif target is ExitPoint:
+		var exit_point := target as ExitPoint
+		confirmation_dialog.dialog_text = exit_point.confirm_text
+		confirmation_dialog.show()
+	else:
+		_show_message("Interação: %s (%s)" % [target.display_name, target.interactable_id])
 
 # Chamado pelos interagíveis via sinais.
 func _on_inspectable_examine_requested(evidence_id: StringName, title: String, description: String) -> void:
@@ -123,11 +137,11 @@ func _on_inspectable_examine_requested(evidence_id: StringName, title: String, d
 		_show_message("Já examinada: %s" % [title])
 		return
 	case_session.mark_examined(evidence_id)
-	_show_message("Examinado: %s\n%s" % [title, description])
-	var already = case_session.has_evidence(evidence_id)
-	if not already:
-		evidence_service.register_evidence(evidence_id)
-		_show_message("Registrada no caderno: %s" % [title])
+	var registered := false
+	if not case_session.has_evidence(evidence_id):
+		registered = evidence_service.register_evidence(evidence_id)
+	var suffix := "\nRegistrada no caderno." if registered else ""
+	_show_message("Examinado: %s\n%s%s" % [title, description, suffix])
 	_refresh_notebook()
 
 func _on_suspect_interview_requested(suspect_id: StringName, display_name: String) -> void:
@@ -201,9 +215,12 @@ func _on_trial_closed() -> void:
 
 func _show_message(text: String) -> void:
 	print("[INVESTIGAÇÃO] %s" % [text])
+	var debug_label := hud.get_node_or_null("DebugMessage") as Label
+	if debug_label != null:
+		debug_label.text = text
 
 func _on_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_N:
+	if event.is_action_pressed("open_notebook"):
 		_toggle_notebook()
 
 func _toggle_notebook() -> void:
