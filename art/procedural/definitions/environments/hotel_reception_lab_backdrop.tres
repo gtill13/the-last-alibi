@@ -1,0 +1,338 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_qef48"]
+
+[resource]
+script = ExtResource("1_qef48")
+definition_id = &"hotel_reception_lab_backdrop"
+logical_size = Vector2i(320, 180)
+commands = Array[Dictionary]([{
+"alpha": 1.0,
+"color_key": "wall",
+"filled": true,
+"position": Vector2(0, 0),
+"size": Vector2(320, 122),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_wall",
+"filled": true,
+"position": Vector2(0, 0),
+"size": Vector2(320, 44),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.6,
+"color_key": "shadow_deep",
+"from": Vector2(0, 44),
+"to": Vector2(320, 44),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(40, 44),
+"to": Vector2(40, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(80, 44),
+"to": Vector2(80, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(120, 44),
+"to": Vector2(120, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(160, 44),
+"to": Vector2(160, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(200, 44),
+"to": Vector2(200, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(240, 44),
+"to": Vector2(240, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_deep",
+"from": Vector2(280, 44),
+"to": Vector2(280, 96),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"filled": true,
+"position": Vector2(0, 96),
+"size": Vector2(320, 26),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_mid",
+"filled": true,
+"position": Vector2(0, 94),
+"size": Vector2(320, 3),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.45,
+"color_key": "shadow_deep",
+"from": Vector2(0, 98),
+"to": Vector2(320, 98),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.85,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(0, 120),
+"size": Vector2(320, 3),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(0, 123),
+"size": Vector2(320, 57),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.55,
+"color_key": "shadow_wall",
+"from": Vector2(0, 134),
+"to": Vector2(320, 134),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.55,
+"color_key": "shadow_wall",
+"from": Vector2(0, 146),
+"to": Vector2(320, 146),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.55,
+"color_key": "shadow_wall",
+"from": Vector2(0, 160),
+"to": Vector2(320, 160),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.55,
+"color_key": "shadow_wall",
+"from": Vector2(0, 174),
+"to": Vector2(320, 174),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_wall",
+"from": Vector2(0, 180),
+"to": Vector2(112, 123),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "shadow_wall",
+"from": Vector2(320, 180),
+"to": Vector2(208, 123),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wine",
+"points": PackedVector2Array(96, 180, 224, 180, 210, 123, 110, 123),
+"type": "polygon"
+}, {
+"alpha": 0.8,
+"color_key": "red_muted",
+"from": Vector2(110, 123),
+"to": Vector2(96, 180),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.8,
+"color_key": "red_muted",
+"from": Vector2(210, 123),
+"to": Vector2(224, 180),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "red_muted",
+"from": Vector2(108, 140),
+"to": Vector2(212, 140),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.35,
+"color_key": "red_muted",
+"from": Vector2(104, 158),
+"to": Vector2(216, 158),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.05,
+"color_key": "amber",
+"points": PackedVector2Array(214, 123, 312, 123, 330, 180, 190, 180),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"filled": true,
+"position": Vector2(10, 50),
+"size": Vector2(56, 72),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(14, 54),
+"size": Vector2(48, 68),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"filled": true,
+"position": Vector2(18, 58),
+"size": Vector2(40, 28),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"filled": true,
+"position": Vector2(18, 90),
+"size": Vector2(40, 28),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.55,
+"color_key": "shadow_wall",
+"filled": true,
+"position": Vector2(20, 60),
+"size": Vector2(36, 24),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.55,
+"color_key": "shadow_wall",
+"filled": true,
+"position": Vector2(20, 92),
+"size": Vector2(36, 24),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.7,
+"color_key": "wood_mid",
+"from": Vector2(14, 54),
+"to": Vector2(14, 122),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"center": Vector2(54, 88),
+"color_key": "amber",
+"radius": 2.0,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"color_key": "wood_mid",
+"filled": true,
+"position": Vector2(72, 56),
+"size": Vector2(20, 18),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "ivory",
+"filled": true,
+"position": Vector2(74, 58),
+"size": Vector2(16, 14),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.8,
+"color_key": "wall",
+"from": Vector2(77, 62),
+"to": Vector2(87, 62),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.8,
+"color_key": "wall",
+"from": Vector2(77, 65),
+"to": Vector2(85, 65),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.8,
+"color_key": "wall",
+"from": Vector2(77, 68),
+"to": Vector2(88, 68),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"center": Vector2(160, 36),
+"color_key": "shadow_deep",
+"radius": 9.0,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"center": Vector2(160, 36),
+"color_key": "ivory",
+"radius": 7.0,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"from": Vector2(160, 36),
+"to": Vector2(160, 31),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"from": Vector2(160, 36),
+"to": Vector2(164, 38),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"center": Vector2(160, 36),
+"color_key": "shadow_deep",
+"radius": 1.0,
+"type": "circle"
+}, {
+"alpha": 0.25,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(178, 96),
+"size": Vector2(124, 26),
+"type": "rect",
+"width": 1.0
+}])

@@ -1,0 +1,168 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_xf4o4"]
+
+[resource]
+script = ExtResource("1_xf4o4")
+definition_id = &"lab_detective"
+logical_size = Vector2i(32, 64)
+pivot = Vector2(16, 60)
+commands = Array[Dictionary]([{
+"alpha": 0.55,
+"color_key": "shadow_deep",
+"points": PackedVector2Array(-4, 60, 2, 56, 30, 56, 36, 60, 30, 64, 2, 64),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(10, 42),
+"size": Vector2(5, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(17, 42),
+"size": Vector2(5, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(7, 56),
+"size": Vector2(10, 4),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(15, 56),
+"size": Vector2(10, 4),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_wall",
+"points": PackedVector2Array(6, 20, 26, 20, 28, 44, 24, 52, 20, 44, 16, 50, 12, 44, 8, 52, 4, 44),
+"type": "polygon"
+}, {
+"alpha": 0.35,
+"color_key": "amber",
+"from": Vector2(26, 20),
+"to": Vector2(28, 44),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"filled": true,
+"position": Vector2(6, 38),
+"size": Vector2(20, 3),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "amber",
+"filled": true,
+"position": Vector2(14, 38),
+"size": Vector2(4, 3),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "ivory",
+"points": PackedVector2Array(12, 20, 20, 20, 16, 28),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "red_muted",
+"points": PackedVector2Array(15, 24, 17, 24, 18, 34, 16, 38, 14, 34),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "shadow_wall",
+"points": PackedVector2Array(6, 22, 2, 38, 6, 42, 11, 26),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "shadow_wall",
+"points": PackedVector2Array(26, 22, 30, 38, 26, 42, 21, 26),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"center": Vector2(4, 42),
+"color_key": "wood_mid",
+"radius": 2.0,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"center": Vector2(28, 42),
+"color_key": "wood_mid",
+"radius": 2.0,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"color_key": "wood_mid",
+"filled": true,
+"position": Vector2(13, 17),
+"size": Vector2(6, 4),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_mid",
+"points": PackedVector2Array(10, 9, 22, 9, 24, 15, 21, 20, 11, 20, 8, 15),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"points": PackedVector2Array(17, 9, 22, 9, 24, 15, 21, 20, 17, 20),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"center": Vector2(13, 15),
+"color_key": "shadow_deep",
+"radius": 0.8,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"center": Vector2(19, 15),
+"color_key": "shadow_deep",
+"radius": 0.8,
+"type": "circle"
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(4, 8),
+"size": Vector2(24, 3),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(9, 0),
+"size": Vector2(14, 9),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"filled": true,
+"position": Vector2(9, 6),
+"size": Vector2(14, 2),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.5,
+"color_key": "wood_mid",
+"from": Vector2(4, 8),
+"to": Vector2(28, 8),
+"type": "line",
+"width": 1.0
+}])

@@ -105,6 +105,45 @@ O driver captura a cena padrão, a variante escura e o retorno à variante clara
 - [x] O cache reutiliza instâncias e respeita o limite do pool (testes automatizados)
 - [x] A cena abre em 1280×720 sem erros ou warnings de desenho
 
+## Art Lab — direção PS1 (Fase 1)
+
+Laboratório isolado em 320×180, sem alterar a resolução global do jogo.
+
+```bash
+export GODOT_BIN="/home/till/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64"
+"$GODOT_BIN" --path . res://scenes/art_lab/procedural_art_lab.tscn
+```
+
+- **Tab** ou **P** alterna escala de jogo ↔ prévia 1×.
+- A barra inferior mostra a paleta noir com códigos hexadecimais.
+- O texto da UI fica fora do `SubViewport` e usa a fonte padrão da engine.
+- Em 1280×720 a escala é 4×; em 1920×1080 é 6×; o filtro é nearest.
+
+### Driver auxiliar
+
+```bash
+./tests/manual/driver_art_lab.sh
+```
+
+Gera e valida as dimensões de:
+
+- `tests/manual/screenshots/art-lab/art_lab_1280x720_4x.png`
+- `tests/manual/screenshots/art-lab/art_lab_1280x720_1x.png`
+- `tests/manual/screenshots/art-lab/art_lab_1920x1080_6x.png`
+- `tests/manual/screenshots/art-lab/*_raw.png` (320×180)
+
+### Checklist do Art Lab
+
+- [x] Paleta editável no `.tres` sem editar o renderer
+- [x] Viewport lógico 320×180
+- [x] 4× em 1280×720 e 6× em 1920×1080
+- [x] Prévia 1× centralizada
+- [x] Filtro nearest sem borrão
+- [x] Silhueta do detetive legível
+- [x] UI nítida fora do `SubViewport`
+- [x] Nenhum asset de imagem na cena
+- [x] Comparação numérica 4×/6×/1× contra o viewport cru: 0 pixels de diferença
+
 ## Observações
 
 - O empate exato de distância é validado por teste de integração determinístico; a temporização de teclado não garante posições fracionárias exatas.

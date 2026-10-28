@@ -1,0 +1,175 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_lab.gd" id="1_lab"]
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_renderer.gd" id="2_renderer"]
+[ext_resource type="Resource" path="res://art/procedural/profiles/ps1_noir_profile.tres" id="3_profile"]
+[ext_resource type="Resource" path="res://art/procedural/definitions/environments/hotel_reception_lab_backdrop.tres" id="4_backdrop"]
+[ext_resource type="Resource" path="res://art/procedural/definitions/props/lab_reception_desk.tres" id="5_desk"]
+[ext_resource type="Resource" path="res://art/procedural/definitions/props/lab_wall_lamp.tres" id="6_lamp"]
+[ext_resource type="Resource" path="res://art/procedural/definitions/props/lab_envelope.tres" id="7_envelope"]
+[ext_resource type="Resource" path="res://art/procedural/definitions/characters/lab_detective.tres" id="8_detective"]
+
+[node name="ProceduralArtLab" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lab")
+style_profile = ExtResource("3_profile")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0352941, 0.0509804, 0.0705882, 1)
+
+[node name="MainDisplay" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameViewport" type="SubViewport" parent="."]
+size = Vector2i(320, 180)
+render_target_update_mode = 1
+
+[node name="Scene" type="Node2D" parent="GameViewport"]
+
+[node name="Backdrop" type="Node2D" parent="GameViewport/Scene"]
+script = ExtResource("2_renderer")
+definition = ExtResource("4_backdrop")
+style_profile = ExtResource("3_profile")
+
+[node name="Detective" type="Node2D" parent="GameViewport/Scene"]
+position = Vector2(78, 127)
+z_index = 1
+script = ExtResource("2_renderer")
+definition = ExtResource("8_detective")
+style_profile = ExtResource("3_profile")
+
+[node name="Desk" type="Node2D" parent="GameViewport/Scene"]
+position = Vector2(250, 127)
+z_index = 2
+script = ExtResource("2_renderer")
+definition = ExtResource("5_desk")
+style_profile = ExtResource("3_profile")
+
+[node name="WallLamp" type="Node2D" parent="GameViewport/Scene"]
+position = Vector2(288, 96)
+z_index = 3
+script = ExtResource("2_renderer")
+definition = ExtResource("6_lamp")
+style_profile = ExtResource("3_profile")
+
+[node name="Envelope" type="Node2D" parent="GameViewport/Scene"]
+position = Vector2(236, 101)
+z_index = 4
+script = ExtResource("2_renderer")
+definition = ExtResource("7_envelope")
+style_profile = ExtResource("3_profile")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopBar" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.0352941, 0.0509804, 0.0705882, 0.88)
+
+[node name="Title" type="Label" parent="UI/TopBar"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 7.0
+offset_right = 560.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.772549, 0.741176, 0.65098, 1)
+theme_override_font_sizes/font_size = 14
+text = "THE LAST ALIBI  ·  ART LAB"
+
+[node name="ScaleLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -760.0
+offset_top = 7.0
+offset_right = -16.0
+offset_bottom = 31.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.72549, 0.509804, 0.262745, 1)
+theme_override_font_sizes/font_size = 13
+text = "320×180 lógico  ·  nearest"
+horizontal_alignment = 2
+
+[node name="HintLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -126.0
+offset_right = -16.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.772549, 0.741176, 0.65098, 0.72)
+theme_override_colors/font_outline_color = Color(0.0352941, 0.0509804, 0.0705882, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Tab / P alterna escala de jogo ↔ prévia 1×   ·   UI fora do viewport (texto nítido)"
+
+[node name="PaletteBar" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.0352941, 0.0509804, 0.0705882, 0.92)
+
+[node name="Margin" type="MarginContainer" parent="UI/PaletteBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="PaletteList" type="HBoxContainer" parent="UI/PaletteBar/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8

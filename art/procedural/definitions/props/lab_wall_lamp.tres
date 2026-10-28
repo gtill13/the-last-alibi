@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_riecf"]
+
+[resource]
+script = ExtResource("1_riecf")
+definition_id = &"lab_wall_lamp"
+logical_size = Vector2i(24, 30)
+pivot = Vector2(12, 30)
+commands = Array[Dictionary]([{
+"alpha": 0.06,
+"center": Vector2(12, 16),
+"color_key": "amber",
+"radius": 18.0,
+"type": "circle"
+}, {
+"alpha": 0.045,
+"color_key": "amber",
+"points": PackedVector2Array(2, 16, 22, 16, 32, 54, -8, 54),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "shadow_deep",
+"filled": true,
+"position": Vector2(10, 14),
+"size": Vector2(4, 16),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"color_key": "wood_dark",
+"points": PackedVector2Array(2, 6, 22, 6, 25, 16, -1, 16),
+"type": "polygon"
+}, {
+"alpha": 0.8,
+"color_key": "amber",
+"from": Vector2(2, 6),
+"to": Vector2(22, 6),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"center": Vector2(12, 17),
+"color_key": "ivory",
+"radius": 2.0,
+"type": "circle"
+}])

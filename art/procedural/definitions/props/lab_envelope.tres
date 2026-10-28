@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="ProceduralArtDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_art_definition.gd" id="1_0ao8r"]
+
+[resource]
+script = ExtResource("1_0ao8r")
+definition_id = &"lab_envelope"
+logical_size = Vector2i(18, 10)
+pivot = Vector2(9, 8)
+commands = Array[Dictionary]([{
+"alpha": 0.4,
+"color_key": "shadow_deep",
+"points": PackedVector2Array(0, 8, 2, 6, 16, 6, 18, 8, 16, 10, 2, 10),
+"type": "polygon"
+}, {
+"alpha": 1.0,
+"color_key": "ivory",
+"filled": true,
+"position": Vector2(0, 0),
+"size": Vector2(18, 8),
+"type": "rect",
+"width": 1.0
+}, {
+"alpha": 0.8,
+"color_key": "wall",
+"from": Vector2(0, 0),
+"to": Vector2(9, 4),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 0.8,
+"color_key": "wall",
+"from": Vector2(18, 0),
+"to": Vector2(9, 4),
+"type": "line",
+"width": 1.0
+}, {
+"alpha": 1.0,
+"center": Vector2(9, 4),
+"color_key": "red_muted",
+"radius": 1.5,
+"type": "circle"
+}])

@@ -3,6 +3,8 @@
 > **Status:** protótipo validado em 27/10/2026  
 > **Escopo:** demonstração técnica; não é arte final  
 > **Veredito curto:** funciona e ficou bom para protótipo; ainda é chapado demais para arte final.
+>
+> **Evolução:** a direção PS1 e o Art Lab da Fase 1 estão em `docs/PROCEDURAL_ART_STYLE_GUIDE.md`.
 
 ## 1. Objetivo
 

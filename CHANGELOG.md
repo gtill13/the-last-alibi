@@ -11,3 +11,6 @@
 - Testes automatizados do M1 (35 testes) e registro manual em `docs/M1_TESTS.md`
 - Protótipo de arte 100% procedural: `ProceduralArtDefinition`, renderer genérico, cache de prefabs, 6 definições, 5 prefabs e cena-demo
 - Testes da arte procedural (23 novos, 58 no total) e validação visual em `docs/ARTE_PROCEDURAL.md`
+- Fase 1 da direção PS1: Art Lab isolado em 320×180, paleta noir compartilhada, perfil de estilo, escala nearest 4×/6× e prévia 1×
+- Guia de estilo em `docs/PROCEDURAL_ART_STYLE_GUIDE.md`, capturas em `tests/manual/screenshots/art-lab/` e driver `tests/manual/driver_art_lab.sh`
+- Testes da Fase 1 (26 novos, 84 no total): paleta, perfil, color-key/alpha no renderer e estrutura do Art Lab

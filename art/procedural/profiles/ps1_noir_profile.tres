@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ProceduralStyleProfile" format=3]
+
+[ext_resource type="Resource" path="res://art/procedural/palettes/palette_noir_hotel.tres" id="1_s3y1t"]
+[ext_resource type="Script" path="res://scripts/procedural/procedural_style_profile.gd" id="2_kt70s"]
+
+[resource]
+script = ExtResource("2_kt70s")
+profile_id = &"ps1_noir"
+palette = ExtResource("1_s3y1t")

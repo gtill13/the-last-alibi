@@ -15,13 +15,27 @@ class_name ProceduralArtRenderer
 		if is_inside_tree():
 			queue_redraw()
 
+## Perfil opcional. Permite que comandos usem "color_key" em vez de "color",
+## mantendo a paleta centralizada no recurso de estilo.
+@export var style_profile: ProceduralStyleProfile:
+	set(value):
+		if style_profile == value:
+			return
+		_disconnect_style_profile()
+		style_profile = value
+		_connect_style_profile()
+		if is_inside_tree():
+			queue_redraw()
+
 func _enter_tree() -> void:
 	# Necessário porque nós retirados e reutilizados pelo pool entram na árvore de novo.
 	_connect_definition()
+	_connect_style_profile()
 	queue_redraw()
 
 func _exit_tree() -> void:
 	_disconnect_definition()
+	_disconnect_style_profile()
 
 func _connect_definition() -> void:
 	if definition != null and not definition.changed.is_connected(_on_definition_changed):
@@ -31,7 +45,18 @@ func _disconnect_definition() -> void:
 	if definition != null and definition.changed.is_connected(_on_definition_changed):
 		definition.changed.disconnect(_on_definition_changed)
 
+func _connect_style_profile() -> void:
+	if style_profile != null and not style_profile.changed.is_connected(_on_style_profile_changed):
+		style_profile.changed.connect(_on_style_profile_changed)
+
+func _disconnect_style_profile() -> void:
+	if style_profile != null and style_profile.changed.is_connected(_on_style_profile_changed):
+		style_profile.changed.disconnect(_on_style_profile_changed)
+
 func _on_definition_changed() -> void:
+	queue_redraw()
+
+func _on_style_profile_changed() -> void:
 	queue_redraw()
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -52,7 +77,7 @@ func _draw() -> void:
 
 func _draw_command(command: Dictionary, index: int) -> void:
 	var kind := String(command.get("type", ""))
-	var color := _read_color(command.get("color", Color.WHITE))
+	var color := _read_command_color(command)
 
 	match kind:
 		"rect":
@@ -99,6 +124,18 @@ func _read_vector2(value: Variant) -> Vector2:
 	if value is Vector2i:
 		return Vector2(value)
 	return Vector2.ZERO
+
+func _read_command_color(command: Dictionary) -> Color:
+	var color_key := String(command.get("color_key", ""))
+	var fallback := _read_color(command.get("color", Color.WHITE))
+	var color := fallback
+	if not color_key.is_empty() and style_profile != null:
+		color = style_profile.get_color(color_key, fallback)
+
+	var alpha := clampf(float(command.get("alpha", 1.0)), 0.0, 1.0)
+	if alpha < 1.0:
+		color.a *= alpha
+	return color
 
 func _read_color(value: Variant) -> Color:
 	if value is Color:

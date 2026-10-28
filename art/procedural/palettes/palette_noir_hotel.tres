@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ProceduralPalette" format=3]
+
+[ext_resource type="Script" path="res://scripts/procedural/procedural_palette.gd" id="1_va3e0"]
+
+[resource]
+script = ExtResource("1_va3e0")
+palette_id = &"palette_noir_hotel"
+colors = {
+"amber": Color(0.7254902, 0.50980395, 0.2627451, 1),
+"green_muted": Color(0.25490198, 0.2901961, 0.2627451, 1),
+"ivory": Color(0.77254903, 0.7411765, 0.6509804, 1),
+"red_muted": Color(0.4745098, 0.23529412, 0.23137255, 1),
+"shadow_deep": Color(0.03529412, 0.050980393, 0.07058824, 1),
+"shadow_wall": Color(0.08235294, 0.10980392, 0.14117648, 1),
+"wall": Color(0.1882353, 0.19607843, 0.21176471, 1),
+"wine": Color(0.2901961, 0.16078432, 0.1764706, 1),
+"wood_dark": Color(0.28627452, 0.20392157, 0.1764706, 1),
+"wood_mid": Color(0.45882353, 0.31764707, 0.23921569, 1)
+}
+display_order = Array[String](["shadow_deep", "shadow_wall", "wall", "wood_dark", "wood_mid", "green_muted", "wine", "amber", "ivory", "red_muted"])
